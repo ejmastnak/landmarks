@@ -1,0 +1,708 @@
+{
+  "landmarks": [
+    {
+      "name": "Tomb of Gül Baba",
+      "type": "Tomb",
+      "city": "Budapest",
+      "country": "Hungary",
+      "comment": "",
+      "link": "https://en.wikipedia.org/wiki/Uyvar_Eyalet"
+    },
+    {
+      "name": "Király Baths",
+      "type": "Bathhouse",
+      "city": "Ganz Street, Budapest",
+      "country": "Hungary",
+      "comment": "",
+      "link": "https://en.wikipedia.org/wiki/E%C4%9Fri_Eyalet"
+    },
+    {
+      "name": "Pasha Qasim Mosque",
+      "type": "Mosque",
+      "city": "Pécs",
+      "country": "Hungary",
+      "comment": "Converted into a church",
+      "link": ""
+    },
+    {
+      "name": "Yakovalı Hasan Paşa Mosque",
+      "type": "Mosque",
+      "city": "Pécs",
+      "country": "Hungary",
+      "comment": "",
+      "link": "https://en.wikipedia.org/wiki/Category:Caravanserais_in_the_Balkans"
+    },
+    {
+      "name": "Malkocs Bey Mosque",
+      "type": "Mosque",
+      "city": "Siklós",
+      "country": "Hungary",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Eger Minaret",
+      "type": "Minaret",
+      "city": "Eger",
+      "country": "Hungary",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Öziçeli Hacci Ibrahim Mosque",
+      "type": "Mosque",
+      "city": "Esztergom",
+      "country": "Hungary",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Esztergom Castle",
+      "type": "Graves",
+      "city": "Esztergom",
+      "country": "Hungary",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Mohács Memorial Park",
+      "type": "Memorial Complex",
+      "city": "Mohács",
+      "country": "Hungary",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Turbék",
+      "type": "Excavations (?)",
+      "city": "Near Szigetvár",
+      "country": "Hungary",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Mosque of Sultan Suleiman",
+      "type": "Former Mosque",
+      "city": "Szigetvár, Zrínyi Castle",
+      "country": "Hungary",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Fil'akovo Fortress",
+      "type": "Fortress said to be occupied by Ottoman troops",
+      "city": "Fil'akovo",
+      "country": "Slovakia",
+      "comment": "Said to be occupied by Ottoman troops",
+      "link": ""
+    },
+    {
+      "name": "Bajrakli Mosque",
+      "type": "Mosque",
+      "city": "Belgrade",
+      "country": "Serbia",
+      "comment": "",
+      "link": "https://balkaninsight.com/2020/12/30/in-muslim-region-of-serbia-ottoman-era-mosques-perish/"
+    },
+    {
+      "name": "Mehmed Paša Sokolović's Fountain",
+      "type": "Fountain",
+      "city": "Belgrade",
+      "country": "Serbia",
+      "comment": "",
+      "link": "http://spomenicikulture.mi.sanu.ac.rs/list.php"
+    },
+    {
+      "name": "Belgrade Fortress",
+      "type": "Fortress",
+      "city": "Belgrade",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Sheikh Mustafa's Turbe",
+      "type": "Tomb",
+      "city": "Belgrade",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Damad Ali Pasha Turbe",
+      "type": "Tomb",
+      "city": "Belgrade",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Kafana \"Beli Medved\"",
+      "type": "House",
+      "city": "Zemun District, Belgrade",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Muzuj Vuka i Dositeja",
+      "type": "House and Museum",
+      "city": "Stari Grad, Belgrade",
+      "country": "Serbia",
+      "comment": "Building is in typical Ottoman style",
+      "link": ""
+    },
+    {
+      "name": "Residence of Prince Miloš",
+      "type": "House",
+      "city": "Topčider Municipality, Belgrade, Serbia",
+      "country": "Serbia",
+      "comment": "Built after Serbia granted autonomy; interior is in \"Oriental\" style",
+      "link": ""
+    },
+    {
+      "name": "",
+      "type": "Cobblestones",
+      "city": "Skadarlija, Belgrade",
+      "country": "Serbia",
+      "comment": "Cobblestone street in Ottoman style",
+      "link": ""
+    },
+    {
+      "name": "Altun-Alem Mosque",
+      "type": "Mosque",
+      "city": "Novi Pazar",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Gazilar Graveyard with turbe",
+      "type": "Graveyard and Tomb",
+      "city": "Novi Pazar",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Old Hammam",
+      "type": "Bathhouse",
+      "city": "Novi Pazar",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Amir Aga's Inn",
+      "type": "Inn/Caravansarai",
+      "city": "Novi Pazar",
+      "country": "Serbia",
+      "comment": "",
+      "link": "https://sandzacke.rs/metromahala/zasto-osmanske-cuprije-u-srbiji-uporno-zele-predstaviti-kao-rimske-mostove/"
+    },
+    {
+      "name": "Hasan Çelebi (Arab) Mosque",
+      "type": "Mosque",
+      "city": "Novi Pazar",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Iskender-Kelebi Mosque",
+      "type": "Mosque",
+      "city": "Novi Pazar",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Leylek Camii",
+      "type": "Mosque",
+      "city": "Novi Pazar",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Islam-agina Džamija",
+      "type": "Mosque",
+      "city": "Niš",
+      "country": "Serbia",
+      "comment": "Built on top of older Ottoman mosque from 1720",
+      "link": ""
+    },
+    {
+      "name": "Niš Fortress",
+      "type": "Fortress",
+      "city": "Niš",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Skull Tower",
+      "type": "Tower",
+      "city": "Niš",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Hammam in Niš Fortress",
+      "type": "Bathhouse",
+      "city": "Niš",
+      "country": "Serbia",
+      "comment": "Next to jazz museum",
+      "link": ""
+    },
+    {
+      "name": "Bali-Beg Mosque",
+      "type": "Mosque",
+      "city": "Niš",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Hasan-begova Džamija",
+      "type": "Mosque",
+      "city": "Niš",
+      "country": "Serbia",
+      "comment": "Only minaret remains",
+      "link": ""
+    },
+    {
+      "name": "Turske Česme",
+      "type": "Fountains",
+      "city": "Novi Sad",
+      "country": "Serbia",
+      "comment": "Near Ledinci",
+      "link": ""
+    },
+    {
+      "name": "Mahmut-Beg Mosque",
+      "type": "Mosque",
+      "city": "Prijepolje",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Mileševac Fortress",
+      "type": "Fortress",
+      "city": "Prijepolje",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "White Bridge",
+      "type": "Bridge",
+      "city": "Vranje",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Vranje Museum",
+      "type": "Former Pasha's Residence",
+      "city": "Vranje",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Hammam Vranje",
+      "type": "Bathhouse",
+      "city": "Vranje",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Gospodar Vasin Konak",
+      "type": "House",
+      "city": "Kraljevo",
+      "country": "Serbia",
+      "comment": "Residence built in Ottoman Balkan style",
+      "link": "https://sr.wikipedia.org/wiki/%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D0%B0%D1%80_%D0%92%D0%B0%D1%81%D0%B8%D0%BD_%D0%BA%D0%BE%D0%BD%D0%B0%D0%BA_%D1%83_%D0%9A%D1%80%D0%B0%D1%99%D0%B5%D0%B2%D1%83"
+    },
+    {
+      "name": "Amidžin Konak",
+      "type": "House",
+      "city": "Kragujevac",
+      "country": "Serbia",
+      "comment": "19th-century residence built in Turkish style",
+      "link": "https://en.wikipedia.org/wiki/Amid%C5%BEa_Konak"
+    },
+    {
+      "name": "Stari Han",
+      "type": "Caravansarai",
+      "city": "Kremna",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Golubac Fortress",
+      "type": "Fortress",
+      "city": "Golubac",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Ram Fortress",
+      "type": "Fortress",
+      "city": "Ram",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Fetislam Fortress",
+      "type": "Fortress",
+      "city": "Kladovo",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Šabac Fortress",
+      "type": "Fortress",
+      "city": "Šabac",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Užice Fortress",
+      "type": "Fortress",
+      "city": "Užice",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Sultan-Valide Mosque",
+      "type": "Mosque",
+      "city": "Sjenica",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Begov Bridge",
+      "type": "Bridge",
+      "city": "Staničenje",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Bač hammam",
+      "type": "Bathhouse",
+      "city": "Bač",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Hammam in Sokobanja",
+      "type": "Bathhouse",
+      "city": "Sokobanja",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Bač Fortress",
+      "type": "Fortress",
+      "city": "Bač",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Stari Han",
+      "type": "Caravansarai",
+      "city": "Kosjerić",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Skender-Paša Mosque",
+      "type": "Mosque",
+      "city": "Nova Varoš",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Džamija Ugao",
+      "type": "Mosque",
+      "city": "Pešter Plateau",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Hasan-Aga's Mosque",
+      "type": "Mosque",
+      "city": "Priboj",
+      "country": "Serbia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Chapel of Peace",
+      "type": "Building",
+      "city": "Sremski Karlovci",
+      "country": "Serbia",
+      "comment": "Site of signing of Treaty of Karlovac",
+      "link": ""
+    },
+    {
+      "name": "Mašković Han",
+      "type": "Inn",
+      "city": "Vrana",
+      "country": "Croatia",
+      "comment": "",
+      "link": "https://hrcak.srce.hr/file/399524"
+    },
+    {
+      "name": "Turska Kupelj",
+      "type": "Bathhouse",
+      "city": "Ilok",
+      "country": "Croatia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Turska Turba",
+      "type": "Tomb",
+      "city": "Ilok",
+      "country": "Croatia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Crkva Svijetog Vida (Murad Bey Tardić Mosque)",
+      "type": "Former Mosque",
+      "city": "Klis",
+      "country": "Croatia",
+      "comment": "Former Ottoman mosque in Klis fortress, converted to church in 1648 upon Venetian conquest of the city, mosque was likely built on even older Gothic church",
+      "link": ""
+    },
+    {
+      "name": "",
+      "type": "Various ",
+      "city": "Klis",
+      "country": "Croatia",
+      "comment": "Muslim cemetary, remains of han and fountain (now Fountain of Three Kings) are supposedly still visible in the \"suburban area of the fortress\"",
+      "link": ""
+    },
+    {
+      "name": "Crkva Svijetog Ante Padovanskog (Džamija Halila Hodža)",
+      "type": "Former Mosque",
+      "city": "Drniš",
+      "country": "Croatia",
+      "comment": "Former 16th century mosque, converted to a church in Baroque era",
+      "link": ""
+    },
+    {
+      "name": "Drniška Minareta",
+      "type": "Minaret",
+      "city": "Drniš",
+      "country": "Croatia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Kosturnica u Drnišu",
+      "type": "Ossuary",
+      "city": "Drniš",
+      "country": "Croatia",
+      "comment": "Ottoman ossuary",
+      "link": ""
+    },
+    {
+      "name": "Utvrđa Gradina Drniš",
+      "type": "Tower",
+      "city": "Drniš",
+      "country": "Croatia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Crkva sv. Ivan Krstitelj",
+      "type": "Clock",
+      "city": "Šibenik",
+      "country": "Croatia",
+      "comment": "Clock built into bell tower, brought from Drniš clock tower",
+      "link": ""
+    },
+    {
+      "name": "Crkva svih Svetih (formerly Ibrahim-Pasha mosque, waqif was Mehmet Bey Memibegović)",
+      "type": "Former Mosque",
+      "city": "Đakovo",
+      "country": "Croatia",
+      "comment": "16th-century Ottoman mosque, converted to a church",
+      "link": ""
+    },
+    {
+      "name": "Tvrđava u Sisku",
+      "type": "Fortress",
+      "city": "Sisaku",
+      "country": "Croatia",
+      "comment": "Site of victory against Ottomans in 16th century",
+      "link": ""
+    },
+    {
+      "name": "Tvrđava u Vrliki",
+      "type": "Fortress",
+      "city": "Vrlika",
+      "country": "Croatia",
+      "comment": "Captured by Ottomans in 1523, held for two centuries until Venetian conquest",
+      "link": ""
+    },
+    {
+      "name": "Turska kula",
+      "type": "Tower",
+      "city": "Perušič",
+      "country": "Croatia",
+      "comment": "Currently undergoing renovation. Nearby church of the Holy Cross formerly a mosque (?)",
+      "link": ""
+    },
+    {
+      "name": "",
+      "type": "Tower",
+      "city": "Budak",
+      "country": "Croatia",
+      "comment": "One of the nearby churches was a former mosque",
+      "link": ""
+    },
+    {
+      "name": "Crkva Navještenja Blažene Djevice Marije u Vrgorcu",
+      "type": "Former Mosque",
+      "city": "Vrgorac",
+      "country": "Croatia",
+      "comment": "Former mosque was incorporated into the church, unclear how much is still visible if at all",
+      "link": ""
+    },
+    {
+      "name": "Crkva Gospoda od Anđela",
+      "type": "Former Mosque",
+      "city": "Imotski",
+      "country": "Croatia",
+      "comment": "Thought to be a repurposed mosque",
+      "link": ""
+    },
+    {
+      "name": "Česma u Otavicama",
+      "type": "Fountain",
+      "city": "Otavice",
+      "country": "Croatia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Česma u Oriovcu",
+      "type": "Fountain",
+      "city": "Oriovac",
+      "country": "Croatia",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "",
+      "type": "Fountain",
+      "city": "Slavonski Brod",
+      "country": "Croatia",
+      "comment": "Somewhere on Rozinka ulica",
+      "link": ""
+    },
+    {
+      "name": "Grand Mosque of Constanța",
+      "type": "Mosque",
+      "city": "Constanța",
+      "country": "Romania",
+      "comment": "Built on the site of the former Mahmudia Mosque (built for Mahmud II), completed 1913",
+      "link": ""
+    },
+    {
+      "name": "Hünkar Mosque",
+      "type": "Mosque",
+      "city": "Constanța",
+      "country": "Romania",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Azizyie Mosque",
+      "type": "Mosque",
+      "city": "Tulcea",
+      "country": "Romania",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Church of the Holy Archangels Michael and Gabriel",
+      "type": "Former Mosque",
+      "city": "Brăila",
+      "country": "Romania",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Esmahan Sultan Mosque",
+      "type": "Mosque",
+      "city": "Mangalia, Constanța County",
+      "country": "Romania",
+      "comment": "Oldest mosque in Romania",
+      "link": ""
+    },
+    {
+      "name": "",
+      "type": "Graveyard",
+      "city": "Mangalia, Constanța County",
+      "country": "Romania",
+      "comment": "Adjacent to Esmahan Sultan Mosque",
+      "link": ""
+    },
+    {
+      "name": "Geamia Ali-Gazi Paşa",
+      "type": "Mosque",
+      "city": "Babadag, Tulcea County",
+      "country": "Romania",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Abdul Mejid Mosque",
+      "type": "Mosque",
+      "city": "Medgidia",
+      "country": "Romania",
+      "comment": "",
+      "link": ""
+    },
+    {
+      "name": "Giurgiu Clocktower",
+      "type": "Clocktower",
+      "city": "Giurgiu",
+      "country": "Romania",
+      "comment": "Built in 1770-71, has since been reconstructed several times",
+      "link": ""
+    },
+    {
+      "name": "Tulcea Art Museum",
+      "type": "Museum",
+      "city": "Tulcea",
+      "country": "Romania",
+      "comment": "Built between 1863-1865, example of modern Ottoman architecture",
+      "link": ""
+    }
+  ]
+}
