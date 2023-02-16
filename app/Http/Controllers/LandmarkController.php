@@ -120,9 +120,12 @@ class LandmarkController extends Controller
      * @param  \App\Models\Landmark  $landmark
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Landmark $landmark)
+    public function destroy($id)
     {
-        $landmark->delete();
+        $landmark = Landmark::find($id);
+        if ($landmark) {
+            $landmark->delete();
+        }
         return Redirect::route('landmarks.index');
     }
 }
