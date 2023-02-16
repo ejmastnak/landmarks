@@ -19,7 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('landmark_type_id');
             $table->foreign('landmark_type_id')->references('id')->on('landmark_types')->cascadeOnDelete();
             $table->string('city', 200);
-            $table->string('country', 100);
+            $table->unsignedBigInteger('country_id');
+            $table->foreign('country_id')->references('id')->on('countries')->cascadeOnDelete();
             $table->text('comment')->nullable();
             $table->string('link', 200)->nullable();
             $table->timestamps();

@@ -15,4 +15,9 @@ class Landmark extends Model
     {
       return $this->belongsTo(LandmarkType::class, 'landmark_type_id', 'id');
     }
+
+    public function country() 
+    {
+      return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
 }

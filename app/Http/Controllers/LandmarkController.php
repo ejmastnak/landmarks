@@ -16,7 +16,6 @@ class LandmarkController extends Controller
      */
     public function index()
     {
-
         return Inertia::render('Landmarks/Index', [
             'landmarks' => Landmark::get(['id', 'name', 'type', 'city', 'country', 'link'])
         ]);

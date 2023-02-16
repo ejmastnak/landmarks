@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Landmark;
 use App\Models\LandmarkType;
+use App\Models\Country;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,7 @@ class LandmarkSeeder extends Seeder
     {
         DB::table('landmarks')->delete();
         DB::table('landmark_types')->delete();
+        DB::table('countries')->delete();
 
         $json = Storage::disk('local')->get('/json/landmarks.json');
         $landmarks = json_decode($json, true);
@@ -28,20 +30,25 @@ class LandmarkSeeder extends Seeder
 
             // Name of landmark type, e.g. "Mosque", "Fortress", ...
             $type_name = $landmark['type'];
-
             // Try to find matching LandmarkType database record
             $type = LandmarkType::where('name', $type_name)->first();
-
             // Create new LandmarkType record if none exists
             if (!$type) {
                 $type = LandmarkType::create(['name' => $type_name]);
+            }
+
+            // Same story for country
+            $country_name = $landmark['country'];
+            $country = Country::where('name', $country_name)->first();
+            if (!$country) {
+                $country = Country::create(['name' => $country_name]);
             }
 
             Landmark::create([
                 'name' => $landmark['name'],
                 'landmark_type_id' => $type->id,
                 'city' => $landmark['city'],
-                'country' => $landmark['country'],
+                'country_id' => $country->id,
                 'comment' => $landmark['comment'] == '' ? null : $landmark['comment'],
                 'link' => $landmark['link'] == '' ? null : $landmark['link'],
             ]);
