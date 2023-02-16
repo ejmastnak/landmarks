@@ -19,6 +19,9 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@headlessui/tailwindcss": "^0.1.2",
+        "@headlessui/vue": "^1.7.10",
+        "@heroicons/vue": "^2.0.15",
         "@inertiajs/progress": "^0.2.7",
         "fuse.js": "^6.6.2"
     }
