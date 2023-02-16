@@ -4,8 +4,11 @@ import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon } from '@heroicons/vue/2
 import DeleteDialog from "@/Components/TheDeleteDialog.vue";
 import FilterSelect from "@/Components/TheFilter.vue";
 import PrimaryLinkButton from "@/Shared/PrimaryLinkButton.vue";
-import { ref, watch, onMounted, onBeforeUpdate, computed } from 'vue'
+import { ref, watch, onMounted, onBeforeUpdate, computed, reactive } from 'vue'
 import Fuse from 'fuse.js'
+import fuzzysort from 'fuzzysort'
+import throttle from "lodash/throttle";
+import debounce from "lodash/debounce";
 
 const types = [
   { id: 0, name: 'All' },
@@ -31,49 +34,42 @@ const props = defineProps({
   landmarks: Array,
 })
 
-const mappedLandmarks = computed(() => {
-  return props.landmarks.map(landmark => ({
-    item : landmark,
-    refIndex: landmark.id
-  }));
-})
+// Convert to fuzzysort format
+let filteredLandmarks = ref(props.landmarks.map((landmark) => ({
+  obj: landmark
+})))
 
 const search = ref("")
-const fuseOptions = {
-  threshold: 0.3,
-  minMatchCharLength: 2,
-  keys: ['name', 'city']
+const fuzzysortOptions = {
+  key: 'name',
+  all: true,
+  limit: 50,
+  threshold: -100
 }
-const fuse = new Fuse(props.landmarks, fuseOptions)
+watch(search, throttle(function (value) {
+  filteredLandmarks.value = fuzzysort.go(value.trim(), props.landmarks, fuzzysortOptions)
+}, 500));
 
-const filteredLandmarks = computed(() => {
-  let tmp = []
+//   // // Filter by selected type
+//   // if (selectedType.value.name === 'All' && selectedCountry.value.name === 'All') {
+//   //   return tmp;
+//   // }
+//   // // By country only
+//   // else if (selectedType.value.name === 'All' && selectedCountry.value.name !== 'All') {
+//   //   return tmp.filter($landmark => ($landmark.item.country === selectedCountry.value.name));
+//   // } 
+//   // // By type only
+//   // else if (selectedType.value.name !== 'All' && selectedCountry.value.name === 'All') {
+//   //   return tmp.filter($landmark => ($landmark.item.type === selectedType.value.name));
+//   // } 
+//   // // By type and country
+//   // else {
+//   //   return tmp.filter($landmark => ($landmark.item.type === selectedType.value.name) && ($landmark.item.country === selectedCountry.value.name));
+//   // }
 
-  // Filter by name
-  if (search.value.trim().length <= 1) {
-    tmp = mappedLandmarks.value
-  } else {
-    tmp = fuse.search(search.value.trim())
-  }
-
-  // Filter by selected type
-  if (selectedType.value.name === 'All' && selectedCountry.value.name === 'All') {
-    return tmp;
-  }
-  // By country only
-  else if (selectedType.value.name === 'All' && selectedCountry.value.name !== 'All') {
-    return tmp.filter($landmark => ($landmark.item.country === selectedCountry.value.name));
-  } 
-  // By type only
-  else if (selectedType.value.name !== 'All' && selectedCountry.value.name === 'All') {
-    return tmp.filter($landmark => ($landmark.item.type === selectedType.value.name));
-  } 
-  // By type and country
-  else {
-    return tmp.filter($landmark => ($landmark.item.type === selectedType.value.name) && ($landmark.item.country === selectedCountry.value.name));
-  }
-
-})
+function blah(id) {
+  filteredLandmarks.value = fuzzysort.go(search.value.trim(), props.landmarks, fuzzysortOptions)
+}
 
 const deleteDialog = ref(null)
 
@@ -174,30 +170,30 @@ export default {
         </thead>
         <tbody>
           <tr 
-            v-for="landmark in filteredLandmarks" :key="landmark.item.id"
+            v-for="landmark in filteredLandmarks" :key="landmark.obj.id"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <th scope="row" class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
               <Link
-                :href="route('landmarks.edit', landmark.item.id)"
+                :href="route('landmarks.edit', landmark.obj.id)"
                 class="hover:underline hover:text-blue-700">
-                {{landmark.item.name}}
+                {{landmark.obj.name}}
               </Link>
             </th>
             <td class="px-6 py-4">
-              {{landmark.item.type}}
+              {{landmark.obj.type}}
             </td>
             <td class="px-6 py-4">
-              {{landmark.item.city}}
+              {{landmark.obj.city}}
             </td>
             <td class="px-6 py-4">
-              {{landmark.item.country}}
+              {{landmark.obj.country}}
             </td>
             <td>
 
               <button 
                 type="button" 
-                @click="deleteDialog.openToConfirmDeletion(landmark.item.id)"
+                @click="deleteDialog.openToConfirmDeletion(landmark.obj.id)"
                 class="block mx-auto p-1 rounded-full hover:border hover:border-red-400 hover:bg-red-200"
               >
                 <TrashIcon class="w-5 h-5 hover:text-red-700" />
@@ -207,13 +203,10 @@ export default {
           </tr>
         </tbody>
       </table>
-
-
     </div>
 
-
     <!-- Delete Dialog -->
-    <DeleteDialog ref="deleteDialog" />
+    <DeleteDialog ref="deleteDialog" @deletedALandmark="blah" />
 
   </div>
 </template>

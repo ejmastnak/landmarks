@@ -16,6 +16,8 @@ defineExpose({
   openToConfirmDeletion
 })
 
+const emit = defineEmits(['deletedALandmark'])
+
 const isOpen = ref(false)
 
 // function setIsOpen(value) {
@@ -37,7 +39,12 @@ function closeWithoutDeletion() {
 function closeAndDelete() {
   isOpen.value = false
   if (idToDelete >= 0) {
-    Inertia.delete(route('landmarks.destroy', idToDelete));
+    const id = idToDelete;  // save deleted id before overwriting with -1
+    Inertia.delete(route('landmarks.destroy', idToDelete), {
+      onSuccess: () => {
+        emit('deletedALandmark', id)
+      }
+    });
   }
   idToDelete = -1
 }
