@@ -53,7 +53,7 @@ const selectedValue = computed({
             'px-4': true,
             'py-1.5': true,
             'bg-blue-500 text-white': active,
-            'text-gray-400': !selected,
+            'text-gray-500': !selected,
             'font-bold': selected,
           }"
         >

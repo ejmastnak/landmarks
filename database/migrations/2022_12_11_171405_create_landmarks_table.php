@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('landmarks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('type');
-            $table->string('city');
-            $table->string('country');
-            $table->string('comment')->nullable();
-            $table->string('link')->nullable();
+            $table->string('name', 200);
+            $table->string('type', 100);
+            $table->string('city', 200);
+            $table->string('country', 100);
+            $table->text('comment')->nullable();
+            $table->string('link', 200)->nullable();
             $table->timestamps();
         });
     }
