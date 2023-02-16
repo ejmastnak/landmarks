@@ -11,7 +11,7 @@ class Landmark extends Model
 
     protected $fillable = ['name', 'landmark_type_id', 'city', 'country', 'comment', 'link'];
 
-    public function type() 
+    public function landmark_type() 
     {
       return $this->belongsTo(LandmarkType::class, 'landmark_type_id', 'id');
     }

@@ -10,51 +10,42 @@ import fuzzysort from 'fuzzysort'
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
 
-const types = [
-  { id: 0, name: 'All' },
-  { id: 1, name: 'Mosque' },
-  { id: 2, name: 'Fortress' },
-  { id: 3, name: 'House' },
-  { id: 4, name: 'Bathhouse' },
-  { id: 5, name: 'Tower' },
-]
-const selectedType = ref(types[0])
-
-const countries = [
-  { id: 0, name: 'All' },
-  { id: 1, name: 'Hungary' },
-  { id: 2, name: 'Slovakia' },
-  { id: 3, name: 'Serbia' },
-  { id: 4, name: 'Croatia' },
-  { id: 5, name: 'Romania' },
-]
-const selectedCountry = ref(countries[0])
-
 const props = defineProps({
   landmarks: Array,
+  countries: Array,
+  landmarkTypes: Array
 })
 
+const selectedLandmarkType = ref(props.landmarkTypes[0])
+const selectedCountry = ref(props.countries[0])
+const allLandmarkType = props.landmarkTypes.find($l => $l.name === 'All');
+const allCountry = props.countries.find($c => $c.name === 'All');
+
 // Convert to fuzzysort format
-let filteredLandmarks = ref(props.landmarks.map((landmark) => ({
+const filteredLandmarks = ref(props.landmarks.map((landmark) => ({
   obj: landmark
 })))
 
 const search = ref("")
 const fuzzysortOptions = {
-  key: 'name',
+  keys: ['name', 'city'],
   all: true,
-  limit: 50,
+  limit: 150,
   threshold: -100
 }
 watch(search, throttle(function (value) {
   filteredLandmarks.value = fuzzysort.go(value.trim(), props.landmarks, fuzzysortOptions)
-}, 500));
+}, 400))
 
 // Decides if a landmark row should display in main landmarks table
 // based on value of select input elements for landmark type and country.
 function shouldDisplay(landmark) {
-  return ((selectedType.value.name === 'All') || (landmark.type === selectedType.value.name)) && ((selectedCountry.value.name === 'All') || (landmark.country === selectedCountry.value.name))
+  return ((selectedLandmarkType.value.id === allLandmarkType.id) || (landmark.landmark_type_id === selectedLandmarkType.value.id)) && ((selectedCountry.value.id === allCountry.id) || (landmark.country_id === selectedCountry.value.id))
 }
+
+const numDisplayedResults = computed(() => {
+  return filteredLandmarks.value.filter(result => shouldDisplay(result.obj)).length
+})
 
 // Updates filtered landmarks after landmarks was deleted on server.
 // This is used to refresh landmark table to reflect a deleted landmark.
@@ -96,7 +87,7 @@ export default {
     </p>
 
     <!-- Begin Flowbite table -->
-    <div class="mt-8 relative overflow-x-auto border border-gray-100 shadow-md sm:rounded-lg">
+    <div class="mt-8 min-h-screen relative overflow-x-auto border border-gray-100 shadow-md sm:rounded-lg">
 
       <!-- Search/filter components -->
       <div class="flex items-center px-2 py-4 bg-white dark:bg-gray-900">
@@ -123,9 +114,10 @@ export default {
         <!-- Select menu for type -->
         <div class="ml-auto">
           <FilterSelect
-            :options="types"
+            :options="landmarkTypes"
             labelText="Filter by type"
-            v-model="selectedType"
+            v-model="selectedLandmarkType"
+            width="w-44"
           />
         </div>
 
@@ -137,7 +129,6 @@ export default {
             v-model="selectedCountry"
           />
         </div>
-
       </div>
 
       <table class="table-fixed w-full text-base text-left text-gray-500 dark:text-gray-400">
@@ -173,13 +164,13 @@ export default {
               </Link>
             </th>
             <td class="px-6 py-4">
-              {{landmark.obj.type}}
+              {{landmark.obj.landmark_type.name}}
             </td>
             <td class="px-6 py-4">
               {{landmark.obj.city}}
             </td>
             <td class="px-6 py-4">
-              {{landmark.obj.country}}
+              {{landmark.obj.country.name}}
             </td>
             <td>
 
@@ -195,6 +186,11 @@ export default {
           </tr>
         </tbody>
       </table>
+
+      <p v-show="numDisplayedResults === 0" class="px-6 py-4" >
+        No results found
+      </p>
+
     </div>
 
     <!-- Delete Dialog -->

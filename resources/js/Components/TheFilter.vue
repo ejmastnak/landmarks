@@ -12,7 +12,11 @@ import {
 const props = defineProps({
   options: Array,
   labelText: String,
-  modelValue: Object
+  modelValue: Object,
+  width: {  // TailwindCSS width class for button and options
+    type: String,
+    default: 'w-36'
+  }
 })
 
 const emit = defineEmits([
@@ -35,11 +39,11 @@ const selectedValue = computed({
     <ListboxLabel class="ml-1 text-sm text-gray-500">
       {{labelText}}
     </ListboxLabel>
-    <ListboxButton class="w-36 flex text-left bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-4 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <ListboxButton :class="width" class="flex text-left bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-4 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       {{ modelValue.name }}
       <ChevronDownIcon class="ml-auto w-5 h-5 text-gray-500" />
     </ListboxButton>
-    <ListboxOptions class="w-36 mt-0.5 text-sm absolute bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+    <ListboxOptions :class="width" class="mt-0.5 text-sm absolute bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
       <ListboxOption
         v-for="person in options"
         :key="person.id"

@@ -23,6 +23,10 @@ class LandmarkSeeder extends Seeder
         DB::table('landmark_types')->delete();
         DB::table('countries')->delete();
 
+        // Create default "All" categories
+        Country::create(['name' => 'All']);
+        LandmarkType::create(['name' => 'All']);
+
         $json = Storage::disk('local')->get('/json/landmarks.json');
         $landmarks = json_decode($json, true);
 

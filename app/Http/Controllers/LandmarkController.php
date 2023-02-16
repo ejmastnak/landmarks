@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Landmark;
+use App\Models\Country;
+use App\Models\LandmarkType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -16,10 +18,13 @@ class LandmarkController extends Controller
      */
     public function index()
     {
+        $landmarks = Landmark::all(['id', 'name', 'landmark_type_id', 'city', 'country_id', 'link']);
+        $landmarks->load(['country:id,name', 'landmark_type:id,name']);
         return Inertia::render('Landmarks/Index', [
-            'landmarks' => Landmark::get(['id', 'name', 'type', 'city', 'country', 'link'])
+            'landmarks' => $landmarks,
+            'countries' => Country::all(['id', 'name']),
+            'landmarkTypes' => LandmarkType::all(['id', 'name'])
         ]);
-
     }
 
     /**
