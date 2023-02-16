@@ -9,5 +9,5 @@ class Landmark extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'type', 'city', 'country', 'comment', 'link'];
+    protected $fillable = ['name', 'landmark_type_id', 'city', 'country', 'comment', 'link'];
 }

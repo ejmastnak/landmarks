@@ -7,16 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+ * Run the migrations.
+ *
+ * @return void
+ */
     public function up()
     {
         Schema::create('landmarks', function (Blueprint $table) {
             $table->id();
             $table->string('name', 200);
-            $table->string('type', 100);
+            $table->unsignedBigInteger('landmark_type_id');
+            $table->foreign('landmark_type_id')->references('id')->on('landmark_types')->cascadeOnDelete();
             $table->string('city', 200);
             $table->string('country', 100);
             $table->text('comment')->nullable();
@@ -26,10 +27,10 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+ * Reverse the migrations.
+ *
+ * @return void
+ */
     public function down()
     {
         Schema::dropIfExists('landmarks');

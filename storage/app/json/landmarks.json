@@ -58,7 +58,7 @@
     },
     {
       "name": "Esztergom Castle",
-      "type": "Graves",
+      "type": "Graveyard",
       "city": "Esztergom",
       "country": "Hungary",
       "comment": "",
@@ -74,7 +74,7 @@
     },
     {
       "name": "Turbék",
-      "type": "Excavations (?)",
+      "type": "Excavations",
       "city": "Near Szigetvár",
       "country": "Hungary",
       "comment": "",
@@ -85,12 +85,12 @@
       "type": "Former Mosque",
       "city": "Szigetvár, Zrínyi Castle",
       "country": "Hungary",
-      "comment": "",
+      "comment": "Former mosque",
       "link": ""
     },
     {
       "name": "Fil'akovo Fortress",
-      "type": "Fortress said to be occupied by Ottoman troops",
+      "type": "Fortress",
       "city": "Fil'akovo",
       "country": "Slovakia",
       "comment": "Said to be occupied by Ottoman troops",
@@ -146,7 +146,7 @@
     },
     {
       "name": "Muzuj Vuka i Dositeja",
-      "type": "House and Museum",
+      "type": "Museum",
       "city": "Stari Grad, Belgrade",
       "country": "Serbia",
       "comment": "Building is in typical Ottoman style",
@@ -178,7 +178,7 @@
     },
     {
       "name": "Gazilar Graveyard with turbe",
-      "type": "Graveyard and Tomb",
+      "type": "Graveyard",
       "city": "Novi Pazar",
       "country": "Serbia",
       "comment": "",
@@ -194,7 +194,7 @@
     },
     {
       "name": "Amir Aga's Inn",
-      "type": "Inn/Caravansarai",
+      "type": "Caravansarai",
       "city": "Novi Pazar",
       "country": "Serbia",
       "comment": "",
@@ -274,7 +274,7 @@
     },
     {
       "name": "Turske Česme",
-      "type": "Fountains",
+      "type": "Fountain",
       "city": "Novi Sad",
       "country": "Serbia",
       "comment": "Near Ledinci",
@@ -306,10 +306,10 @@
     },
     {
       "name": "Vranje Museum",
-      "type": "Former Pasha's Residence",
+      "type": "Museum",
       "city": "Vranje",
       "country": "Serbia",
-      "comment": "",
+      "comment": "Former Pasha's Residence",
       "link": ""
     },
     {
@@ -466,7 +466,7 @@
     },
     {
       "name": "Mašković Han",
-      "type": "Inn",
+      "type": "Caravansarai",
       "city": "Vrana",
       "country": "Croatia",
       "comment": "",
