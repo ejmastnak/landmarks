@@ -50,24 +50,15 @@ watch(search, throttle(function (value) {
   filteredLandmarks.value = fuzzysort.go(value.trim(), props.landmarks, fuzzysortOptions)
 }, 500));
 
-//   // // Filter by selected type
-//   // if (selectedType.value.name === 'All' && selectedCountry.value.name === 'All') {
-//   //   return tmp;
-//   // }
-//   // // By country only
-//   // else if (selectedType.value.name === 'All' && selectedCountry.value.name !== 'All') {
-//   //   return tmp.filter($landmark => ($landmark.item.country === selectedCountry.value.name));
-//   // } 
-//   // // By type only
-//   // else if (selectedType.value.name !== 'All' && selectedCountry.value.name === 'All') {
-//   //   return tmp.filter($landmark => ($landmark.item.type === selectedType.value.name));
-//   // } 
-//   // // By type and country
-//   // else {
-//   //   return tmp.filter($landmark => ($landmark.item.type === selectedType.value.name) && ($landmark.item.country === selectedCountry.value.name));
-//   // }
+// Decides if a landmark row should display in main landmarks table
+// based on value of select input elements for landmark type and country.
+function shouldDisplay(landmark) {
+  return ((selectedType.value.name === 'All') || (landmark.type === selectedType.value.name)) && ((selectedCountry.value.name === 'All') || (landmark.country === selectedCountry.value.name))
+}
 
-function blah(id) {
+// Updates filtered landmarks after landmarks was deleted on server.
+// This is used to refresh landmark table to reflect a deleted landmark.
+function updateFilterOnDeletion(id) {
   filteredLandmarks.value = fuzzysort.go(search.value.trim(), props.landmarks, fuzzysortOptions)
 }
 
@@ -171,6 +162,7 @@ export default {
         <tbody>
           <tr 
             v-for="landmark in filteredLandmarks" :key="landmark.obj.id"
+            v-show="shouldDisplay(landmark.obj)"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <th scope="row" class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
@@ -206,7 +198,7 @@ export default {
     </div>
 
     <!-- Delete Dialog -->
-    <DeleteDialog ref="deleteDialog" @deletedALandmark="blah" />
+    <DeleteDialog ref="deleteDialog" @deletedALandmark="updateFilterOnDeletion" />
 
   </div>
 </template>
