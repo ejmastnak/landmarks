@@ -9,4 +9,9 @@ class LandmarkType extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
+
+    public function landmarks()
+    {
+        return $this->hasMany(Landmark::class, 'landmark_type_id', 'id');
+    }
 }

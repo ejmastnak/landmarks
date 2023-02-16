@@ -10,4 +10,9 @@ class Landmark extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'landmark_type_id', 'city', 'country', 'comment', 'link'];
+
+    public function type() 
+    {
+      return $this->belongsTo(LandmarkType::class, 'landmark_type_id', 'id');
+    }
 }
