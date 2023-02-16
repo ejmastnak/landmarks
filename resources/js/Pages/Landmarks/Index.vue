@@ -93,7 +93,7 @@ export default {
 
     <!-- Title and new landmark top row -->
     <div class="flex items-center">
-      <h1 class="font-semibold text-2xl text-gray-900 p-1">Ottoman Landmarks in Europe</h1>
+      <h1 class="font-semibold text-2xl text-gray-900 p-1">Ottoman landmarks in Europe</h1>
       <!-- New landmark button -->
       <PrimaryLinkButton 
         :href="route('landmarks.create')"
@@ -102,6 +102,11 @@ export default {
         <span class="ml-2 text-base">New landmark</span>
       </PrimaryLinkButton>
     </div>
+
+    <p class="mt-2 w-2/3 text-gray-500">
+      This is a list of Ottoman landmarks in Europe.
+      You can use this page to view, edit, delete, or add new landmarks. 
+    </p>
 
     <!-- Begin Flowbite table -->
     <div class="mt-8 relative overflow-x-auto border border-gray-100 shadow-md sm:rounded-lg">
