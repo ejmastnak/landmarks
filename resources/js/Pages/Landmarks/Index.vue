@@ -3,7 +3,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3'
 import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
 import DeleteDialog from "@/Components/TheDeleteDialog.vue";
 import FilterSelect from "@/Components/TheFilter.vue";
-import PrimaryLinkButton from "@/Shared/PrimaryLinkButton.vue";
+import PrimaryLinkButton from "@/Components/PrimaryLinkButton.vue";
 import { ref, watch, onMounted, onBeforeUpdate, computed, reactive } from 'vue'
 import Fuse from 'fuse.js'
 import fuzzysort from 'fuzzysort'
@@ -16,10 +16,10 @@ const props = defineProps({
   landmarkTypes: Array
 })
 
-const selectedLandmarkType = ref(props.landmarkTypes[0])
-const selectedCountry = ref(props.countries[0])
 const allLandmarkType = props.landmarkTypes.find($l => $l.name === 'All');
 const allCountry = props.countries.find($c => $c.name === 'All');
+const selectedLandmarkType = ref(allLandmarkType)
+const selectedCountry = ref(allCountry)
 
 // Convert to fuzzysort format
 const filteredLandmarks = ref(props.landmarks.map((landmark) => ({

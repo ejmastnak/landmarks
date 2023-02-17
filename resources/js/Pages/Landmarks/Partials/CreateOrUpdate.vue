@@ -4,19 +4,30 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import TextAreaInput from '@/Components/TextAreaInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import SecondaryLinkButton from "@/Shared/SecondaryLinkButton.vue";
+import Combobox from '@/Components/Combobox.vue';
+import SecondaryLinkButton from "@/Components/SecondaryLinkButton.vue";
 import { useForm } from '@inertiajs/inertia-vue3';
+import { ref } from 'vue';
 
 const props = defineProps({
   landmark: Object,
-  action: String  // "create" or "update"
+  action: String,  // "create" or "update"
+  countries: Array,
+  landmarkTypes: Array
 });
+
+// const allLandmarkType = props.landmarkTypes.find($l => $l.name === 'All');
+// const allCountry = props.countries.find($c => $c.name === 'All');
+const selectedCountry = ref(props.countries[4])
+const selectedLandmarkType = ref({})
 
 const form = useForm({
   name: props.landmark?.name,
-  type: props.landmark?.type,
+  // Use landmarkType object that matches passed landmark's type
+  landmarkType: props.landmark ? props.landmarkTypes.find($l => $l.id === props.landmark.landmark_type.id) : {},
   city: props.landmark?.city,
-  country: props.landmark?.country,
+  // Use country object that matches passed landmark's country
+  country: props.landmark ? props.countries.find($c => $c.id === props.landmark.country.id) : {},
   comment: props.landmark?.comment
 });
 
@@ -47,15 +58,8 @@ const submit = () => {
     </div>
 
     <div class="mt-2">
-      <InputLabel for="type" value="Type" />
-      <TextInput
-        id="type"
-        type="text"
-        class="mt-1 block"
-        v-model="form.type"
-        required
-      />
-      <InputError class="mt-2" :message="form.errors.type" />
+      <Combobox labelText="Type" :options="landmarkTypes" v-model="form.landmarkType" />
+      <InputError class="mt-2" :message="form.errors.landmarkType" />
     </div>
 
     <div class="flex mt-4">
@@ -72,16 +76,10 @@ const submit = () => {
       </div>
 
       <div class="ml-2">
-        <InputLabel for="country" value="Country" />
-        <TextInput
-          id="country"
-          type="text"
-          class="mt-1 block w-32"
-          v-model="form.country"
-          required
-        />
+        <Combobox labelText="Country" :options="countries" v-model="form.country" />
         <InputError class="mt-2" :message="form.errors.country" />
       </div>
+
     </div>
 
     <div class="mt-4">

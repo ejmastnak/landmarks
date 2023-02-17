@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { ChevronDownIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import {
   Listbox,
@@ -43,11 +43,11 @@ const selectedValue = computed({
       {{ modelValue.name }}
       <ChevronDownIcon class="ml-auto w-5 h-5 text-gray-500" />
     </ListboxButton>
-    <ListboxOptions :class="width" class="mt-0.5 text-sm absolute bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+    <ListboxOptions :class="width" class="absolute mt-0.5 text-sm bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
       <ListboxOption
-        v-for="person in options"
-        :key="person.id"
-        :value="person"
+        v-for="option in options"
+        :key="option.id"
+        :value="option"
         class="text-left cursor-pointer hover:bg-gray-100"
         v-slot="{ active, selected }"
       >
@@ -61,7 +61,7 @@ const selectedValue = computed({
             'font-bold': selected,
           }"
         >
-          {{ person.name }}
+          {{ option.name }}
           <CheckIcon class="ml-auto w-5 h-5" v-show="selected" />
         </li>
       </ListboxOption>
