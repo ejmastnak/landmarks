@@ -131,7 +131,17 @@ class LandmarkController extends Controller
     {
         $landmark = Landmark::find($id);
         if ($landmark) {
+            $country_id = $landmark->country_id;
+            $landmark_type_id = $landmark->landmark_type_id;
             $landmark->delete();
+            // Also delete the landmark's country and/or landmark type if there
+            // are no remaining landmarks with this country/type.
+            if(Landmark::where('country_id', $country_id)->doesntExist()) {
+                Country::find($country_id)->delete();
+            }
+            if(Landmark::where('landmark_type_id', $landmark_type_id)->doesntExist()) {
+                LandmarkType::find($landmark_type_id)->delete();
+            }
         }
         return Redirect::route('landmarks.index');
     }
