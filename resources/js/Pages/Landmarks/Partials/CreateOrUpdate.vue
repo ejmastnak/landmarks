@@ -60,6 +60,8 @@ const submit = () => {
     <div class="mt-2">
       <Combobox labelText="Type" :options="landmarkTypes" v-model="form.landmarkType" />
       <InputError class="mt-2" :message="form.errors.landmarkType" />
+      <InputError class="mt-2" :message="form.errors['landmarkType.id']" />
+      <InputError class="mt-2" :message="form.errors['landmarkType.name']" />
     </div>
 
     <div class="flex mt-4">
@@ -78,6 +80,8 @@ const submit = () => {
       <div class="ml-2">
         <Combobox labelText="Country" :options="countries" v-model="form.country" />
         <InputError class="mt-2" :message="form.errors.country" />
+        <InputError class="mt-2" :message="form.errors['country.id']" />
+        <InputError class="mt-2" :message="form.errors['country.name']" />
       </div>
 
     </div>

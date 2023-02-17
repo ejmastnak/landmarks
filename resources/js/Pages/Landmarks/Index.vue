@@ -188,7 +188,7 @@ export default {
       </table>
 
       <p v-show="numDisplayedResults === 0" class="px-6 py-4" >
-        No results found
+        No results found. Try a less restrictive filter or search?
       </p>
 
     </div>
