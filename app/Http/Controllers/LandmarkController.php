@@ -61,7 +61,7 @@ class LandmarkController extends Controller
             'comment' => $request->comment
         ]);
 
-        return Redirect::route('landmarks.index');
+        return Redirect::route('landmarks.index')->with('message', 'Success! Landmark created successfully.');
     }
 
     /**
@@ -117,7 +117,7 @@ class LandmarkController extends Controller
             'country_id' => $country_id,
             'comment' => $request->comment
         ]);
-        return Redirect::route('landmarks.index');
+        return Redirect::route('landmarks.index')->with('message', 'Success! Landmark updated successfully.');
     }
 
     /**
@@ -142,7 +142,7 @@ class LandmarkController extends Controller
                 LandmarkType::find($landmark_type_id)->delete();
             }
         }
-        return Redirect::route('landmarks.index');
+        return Redirect::route('landmarks.index')->with('message', 'Success! Landmark deleted successfully.');
     }
 
     /**
