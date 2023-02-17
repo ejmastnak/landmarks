@@ -12,12 +12,13 @@ import debounce from "lodash/debounce";
 
 const props = defineProps({
   landmarks: Array,
-  countries: Array,
-  landmarkTypes: Array
+  filterCountries: Array,
+  filterLandmarkTypes: Array,
+  foos: Array
 })
 
-const allLandmarkType = props.landmarkTypes.find($l => $l.name === 'All');
-const allCountry = props.countries.find($c => $c.name === 'All');
+const allLandmarkType = props.filterLandmarkTypes.find($l => $l.name === 'All');
+const allCountry = props.filterCountries.find($c => $c.name === 'All');
 const selectedLandmarkType = ref(allLandmarkType)
 const selectedCountry = ref(allCountry)
 
@@ -114,7 +115,7 @@ export default {
         <!-- Select menu for type -->
         <div class="ml-auto">
           <FilterSelect
-            :options="landmarkTypes"
+            :options="filterLandmarkTypes"
             labelText="Filter by type"
             v-model="selectedLandmarkType"
             width="w-44"
@@ -124,7 +125,7 @@ export default {
         <!-- Select menu for country -->
         <div class="ml-2">
           <FilterSelect
-            :options="countries"
+            :options="filterCountries"
             labelText="Filter by country"
             v-model="selectedCountry"
           />

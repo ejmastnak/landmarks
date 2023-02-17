@@ -22,8 +22,8 @@ class LandmarkController extends Controller
         $landmarks->load(['country:id,name', 'landmark_type:id,name']);
         return Inertia::render('Landmarks/Index', [
             'landmarks' => $landmarks,
-            'countries' => Country::all(['id', 'name']),
-            'landmarkTypes' => LandmarkType::all(['id', 'name'])
+            'filterCountries' => Country::countriesForFiltering(),
+            'filterLandmarkTypes' => LandmarkType::landmarkTypesForFiltering(),
         ]);
     }
 
@@ -117,7 +117,6 @@ class LandmarkController extends Controller
             'country_id' => $country_id,
             'comment' => $request->comment
         ]);
-
         return Redirect::route('landmarks.index');
     }
 
