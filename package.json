@@ -23,6 +23,7 @@
         "@headlessui/vue": "^1.7.10",
         "@heroicons/vue": "^2.0.15",
         "@inertiajs/progress": "^0.2.7",
+        "file-saver": "^2.0.5",
         "fuse.js": "^6.6.2",
         "fuzzysort": "^2.0.4"
     }

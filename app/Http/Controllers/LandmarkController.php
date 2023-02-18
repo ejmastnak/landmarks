@@ -7,10 +7,15 @@ use App\Models\Country;
 use App\Models\LandmarkType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use Inertia\Inertia;
 
 class LandmarkController extends Controller
 {
+
+    private $foo = 'bar';
+
     /**
      * Display a listing of the resource.
      *
@@ -146,6 +151,17 @@ class LandmarkController extends Controller
     }
 
     /**
+     *  Used to save lists of Landmarks to JSON files. The method accepts a
+     *  request containing a JSON array of Landmark objects and saves the JSON
+     *  array to disk.
+     */
+    public function exportToJSON(Request $request)
+    {
+
+    }
+
+
+    /**
      *  Validates an incoming store or update request.
      *  Request is expected to contain:
      *  name: string
@@ -192,11 +208,12 @@ class LandmarkController extends Controller
     }
 
     /**
-     *  The request contains a country object.
-     *  If a matching country exists in database, returns the country's id.
-     *  Otherwise creates a new country and returns the new country's id.
+     *  The request parameter contains a country object. If a matching
+     *  country exists in database, returns the country's id. Otherwise
+     *  creates a new country and returns the new country's id.
      */
-    private function getCountryIDForRequest($request) {
+    private function getCountryIDForRequest(Request $request)
+    {
         if($request->country['id'] == -1) {
             return Country::create(['name' => $request->country['name']])->id;
         } else {
@@ -207,11 +224,44 @@ class LandmarkController extends Controller
     /**
      *  Analaog of getCountryIDForRequest for landmark types.
      */
-    private function getLandmarkTypeIDForRequest($request) {
+    private function getLandmarkTypeIDForRequest(Request $request)
+    {
         if($request->landmarkType['id'] === -1) {
             return LandmarkType::create(['name' => $request->landmarkType['name']])->id;
         } else {
             return $request->landmarkType['id'];
         }
     }
+
+    /**
+     *  Input a HTTP POST request containing a JSON array of landmarks.
+     */
+    public function exportLandmarks(Request $request)
+    {
+        $landmarks = Landmark::findMany($request->landmarkIDs)->load('landmark_type:id,name', 'country:id,name');
+        $landmarks = $landmarks->map(fn($l) => [
+            'id' => $l->id,
+            'name' => $l->name,
+            'landmark_type' => $l->landmark_type['name'],
+            'city' => $l->city,
+            'country' => $l->country['name'],
+            'comment' => $l->comment
+        ]);
+
+        $filename = "landmarks_export_" . date(DATE_ATOM, time()) . ".json";
+
+        Storage::disk('public')->put($filename, json_encode($landmarks, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+        $this->foo = "baz";
+
+        return Redirect::route('landmarks.index')->with('download', $filename);
+    }
+
+    public function downloadLandmarks(Request $request)
+    {
+        // dd($request);
+        return Storage::download('public/test.json');
+        // return Response::download('test.json', 'file.json', $headers);
+    }
+
 }

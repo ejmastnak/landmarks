@@ -1,20 +1,23 @@
 <script setup>
+import { Inertia } from '@inertiajs/inertia'
 import { Head, Link } from '@inertiajs/inertia-vue3'
-import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
+import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon, ArchiveBoxArrowDownIcon } from '@heroicons/vue/24/outline'
 import DeleteDialog from "@/Components/TheDeleteDialog.vue";
 import FilterSelect from "@/Components/TheFilter.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryLinkButton from "@/Components/PrimaryLinkButton.vue";
 import { ref, watch, onMounted, onBeforeUpdate, computed, reactive } from 'vue'
-import Fuse from 'fuse.js'
+import { useForm } from '@inertiajs/inertia-vue3';
 import fuzzysort from 'fuzzysort'
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
+import { saveAs } from 'file-saver';
 
 const props = defineProps({
   landmarks: Array,
   filterCountries: Array,
   filterLandmarkTypes: Array,
-  foos: Array
+  download: String
 })
 
 const allLandmarkType = props.filterLandmarkTypes.find($l => $l.name === 'All');
@@ -53,8 +56,58 @@ const numDisplayedResults = computed(() => {
 function updateFilterOnDeletion(id) {
   filteredLandmarks.value = fuzzysort.go(search.value.trim(), props.landmarks, fuzzysortOptions)
 }
-
 const deleteDialog = ref(null)
+
+// For exporting Landmarks to JSON
+const exportForm = useForm({
+  landmarkIDs: []
+});
+
+function exportToJSON() {
+
+  exportForm.landmarkIDs = filteredLandmarks.value.filter(l => shouldDisplay(l.obj)).map(l => l.obj.id);
+  exportForm.post(route('landmarks.export'), {
+    onSuccess: () => {
+      exportForm.reset()
+
+      // TODO: take it from here: replace barium w the flash data
+      // IN controller chiech if file is null...
+      // Find file by name
+      // Oh and pass this XSRF token properly
+      let data = {file: "barium"};
+      fetch(route('landmarks.download'), {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'X-XSRF-TOKEN': 'eyJpdiI6ImF5NXlHN1ZPY1hqU3pvZVlRa3FGZFE9PSIsInZhbHVlIjoid09PMEFORnRIMGNhbGI3dUxRZkJPdFFCRG9TL0phREFJejJmVVc0RFpQWmg3amQ3MmhxS25GNEhadGNDbTM2R2hwVXZrTGMxby9QblpBazd2M0FHcnczRzNLK3NHaVZaYkVrOWFoWGRrY09Zb2g4aWZ0eThEMnpKanFBVUdxcDMiLCJtYWMiOiI4Y2NkMTk4OTA3YmNiYmQ4NjlmYmI2NmUyM2Q0NmU1OTI5MTdkM2M2Y2Y1MjgyODJkMTNhZDQ4NjdmODUyMWU5IiwidGFnIjoiIn0',
+        }, 
+        body: JSON.stringify(data)
+      }).then( res => res.blob() )
+        .then( blob => {
+
+          saveAs(blob, "hello world.txt");
+
+          // var file = window.URL.createObjectURL(blob);
+          // window.location.assign(file);
+        });
+
+      // const myHeaders = new Headers({
+      //   'Content-Type': 'text/plain',
+      //   'Content-Length': content.length.toString(),
+      //   'X-Custom-Header': 'ProcessThisImmediately'
+      // });
+      //
+      // const myRequest = new Request('flowers.jpg', {
+      //   method: 'GET',
+      //   headers: myHeaders,
+      //   mode: 'cors',
+      //   cache: 'default',
+      // });
+
+    },
+    onCancel: () => exportForm.reset(),
+  });
+}
 
 </script>
 
@@ -71,21 +124,44 @@ export default {
     <Head title="Landmarks" />
 
     <!-- Title and new landmark top row -->
-    <div class="flex items-center">
-      <h1 class="font-semibold text-2xl text-gray-900 p-1">Ottoman landmarks in Europe</h1>
-      <!-- New landmark button -->
-      <PrimaryLinkButton 
-        :href="route('landmarks.create')"
-        class="flex items-center ml-auto normal-case text-xl">
-        <PlusCircleIcon class="w-6 h-6" />
-        <span class="ml-2 text-base">New landmark</span>
-      </PrimaryLinkButton>
-    </div>
+    <div class="flex">
 
-    <p class="mt-2 w-2/3 text-gray-500">
-      This is a list of Ottoman landmarks in Europe.
-      You can use this page to view, edit, delete, or add new landmarks. 
-    </p>
+      <div v-if="$page.props.flash.download">
+        {{ $page.props.flash.download }}
+      </div>
+
+      <div class="">
+        <h1 class="font-semibold text-2xl text-gray-900 p-1">Ottoman landmarks in Europe</h1>
+        <p class="mt-2 w-2/3 text-gray-500">
+          This is a list of Ottoman landmarks in Europe.
+          You can use this page to view, edit, delete, or add new landmarks. 
+        </p>
+      </div>
+
+
+      <div class="flex flex-col ml-auto">
+        <!-- New landmark button -->
+        <PrimaryLinkButton 
+          :href="route('landmarks.create')"
+          class="flex items-center mt-1 normal-case text-xl w-full">
+          <PlusCircleIcon class="w-6 h-6" />
+          <p class="ml-2 text-base">New landmark</p>
+        </PrimaryLinkButton>
+        <!-- Export to JSON -->
+
+        <form @submit.prevent="exportToJSON">
+          <SecondaryButton 
+            class="flex items-center mt-2 normal-case text-xl sm:w-max"
+            :disabled="exportForm.processing"
+            @click="exportToJSON"
+          >
+            <ArchiveBoxArrowDownIcon class="w-6 h-6" />
+            <p class="ml-2 text-base">Export as JSON</p>
+          </SecondaryButton>
+        </form>
+      </div>
+
+    </div>
 
     <!-- Begin Flowbite table -->
     <div class="mt-8 min-h-screen relative overflow-x-auto border border-gray-100 shadow-md sm:rounded-lg">

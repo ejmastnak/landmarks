@@ -1,0 +1,51 @@
+/home/ej/Documents/projects/landmarks/app/storage/app/public/test.json
+[
+    {
+        "id": 24,
+        "name": "Old Hammam",
+        "landmark_type": "Bathhouse",
+        "city": "Novi Pazar",
+        "country": "Serbia",
+        "comment": null
+    },
+    {
+        "id": 32,
+        "name": "Hammam in Niš Fortress",
+        "landmark_type": "Bathhouse",
+        "city": "Niš",
+        "country": "Serbia",
+        "comment": "Next to jazz museum"
+    },
+    {
+        "id": 40,
+        "name": "Hammam Vranje",
+        "landmark_type": "Bathhouse",
+        "city": "Vranje",
+        "country": "Serbia",
+        "comment": null
+    },
+    {
+        "id": 51,
+        "name": "Bač hammam",
+        "landmark_type": "Bathhouse",
+        "city": "Bač",
+        "country": "Serbia",
+        "comment": null
+    },
+    {
+        "id": 52,
+        "name": "Hammam in Sokobanja",
+        "landmark_type": "Bathhouse",
+        "city": "Sokobanja",
+        "country": "Serbia",
+        "comment": null
+    },
+    {
+        "id": 60,
+        "name": "Turska Kupelj",
+        "landmark_type": "Bathhouse",
+        "city": "Ilok",
+        "country": "Croatia",
+        "comment": null
+    }
+]
