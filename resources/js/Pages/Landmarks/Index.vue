@@ -7,7 +7,7 @@ import FilterSelect from "@/Components/TheFilter.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryLinkButton from "@/Components/PrimaryLinkButton.vue";
 import { ref, watch, onMounted, onBeforeUpdate, computed, reactive } from 'vue'
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import fuzzysort from 'fuzzysort'
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
@@ -17,7 +17,6 @@ const props = defineProps({
   landmarks: Array,
   filterCountries: Array,
   filterLandmarkTypes: Array,
-  download: String
 })
 
 const allLandmarkType = props.filterLandmarkTypes.find($l => $l.name === 'All');
@@ -65,45 +64,27 @@ const exportForm = useForm({
 
 function exportToJSON() {
 
+  // Extract IDs of landmarks to export
   exportForm.landmarkIDs = filteredLandmarks.value.filter(l => shouldDisplay(l.obj)).map(l => l.obj.id);
+
   exportForm.post(route('landmarks.export'), {
     onSuccess: () => {
       exportForm.reset()
-
-      // TODO: take it from here: replace barium w the flash data
-      // IN controller chiech if file is null...
-      // Find file by name
-      // Oh and pass this XSRF token properly
-      let data = {file: "barium"};
-      fetch(route('landmarks.download'), {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': 'eyJpdiI6ImF5NXlHN1ZPY1hqU3pvZVlRa3FGZFE9PSIsInZhbHVlIjoid09PMEFORnRIMGNhbGI3dUxRZkJPdFFCRG9TL0phREFJejJmVVc0RFpQWmg3amQ3MmhxS25GNEhadGNDbTM2R2hwVXZrTGMxby9QblpBazd2M0FHcnczRzNLK3NHaVZaYkVrOWFoWGRrY09Zb2g4aWZ0eThEMnpKanFBVUdxcDMiLCJtYWMiOiI4Y2NkMTk4OTA3YmNiYmQ4NjlmYmI2NmUyM2Q0NmU1OTI5MTdkM2M2Y2Y1MjgyODJkMTNhZDQ4NjdmODUyMWU5IiwidGFnIjoiIn0',
-        }, 
-        body: JSON.stringify(data)
-      }).then( res => res.blob() )
-        .then( blob => {
-
-          saveAs(blob, "hello world.txt");
-
-          // var file = window.URL.createObjectURL(blob);
-          // window.location.assign(file);
-        });
-
-      // const myHeaders = new Headers({
-      //   'Content-Type': 'text/plain',
-      //   'Content-Length': content.length.toString(),
-      //   'X-Custom-Header': 'ProcessThisImmediately'
-      // });
-      //
-      // const myRequest = new Request('flowers.jpg', {
-      //   method: 'GET',
-      //   headers: myHeaders,
-      //   mode: 'cors',
-      //   cache: 'default',
-      // });
-
+      const filename = usePage().props.value.flash.download
+      if (filename) {
+        const data = {filename: filename};
+        fetch(route('landmarks.download'), {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': 'eyJpdiI6Im5uTFBYYjhueG5mdFBzRkg4eGRJc2c9PSIsInZhbHVlIjoiRUdHZGcvMjdnOEdxNW5EeWZBeG5HWUh1aGR4SW51MXR0QmtXT3pVSFoyRXlzZG9SNVBTM3FqNDZ0WjV1RWpMQk81V1YxYzk5Q2t1NUdFZlZZQjdBaERZakR1dDJ0WU5paU1UZ1ZjSjAyTUNyYmpVM09pTEsrYWc5dnhQQmQ0aHMiLCJtYWMiOiJkZTMxY2M5YzUyNDcxMjA2YzAwNTMzNmQ3NmU2MjE5NzUwOWJmMmVmMjY5M2IxNWJlZmM1NzFlN2EyY2FkYTZkIiwidGFnIjoiIn0='
+          }, 
+          body: JSON.stringify(data)
+        }).then((res) => res.blob())
+          .then((blob) => {
+            saveAs(blob, filename);
+          });
+      }
     },
     onCancel: () => exportForm.reset(),
   });
@@ -125,10 +106,6 @@ export default {
 
     <!-- Title and new landmark top row -->
     <div class="flex">
-
-      <div v-if="$page.props.flash.download">
-        {{ $page.props.flash.download }}
-      </div>
 
       <div class="">
         <h1 class="font-semibold text-2xl text-gray-900 p-1">Ottoman landmarks in Europe</h1>
@@ -159,6 +136,8 @@ export default {
             <p class="ml-2 text-base">Export as JSON</p>
           </SecondaryButton>
         </form>
+
+        {{$page.props.csrf_token}}
       </div>
 
     </div>

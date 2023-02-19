@@ -252,16 +252,18 @@ class LandmarkController extends Controller
 
         Storage::disk('public')->put($filename, json_encode($landmarks, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 
-        $this->foo = "baz";
-
         return Redirect::route('landmarks.index')->with('download', $filename);
+
+        // return Storage::download('public/test.json');
+
     }
 
     public function downloadLandmarks(Request $request)
     {
-        // dd($request);
-        return Storage::download('public/test.json');
-        // return Response::download('test.json', 'file.json', $headers);
+        if($request->filename) {
+            return Storage::download('public/' . $request->filename);
+            // return Response::download('test.json', 'file.json', $headers);
+        }
     }
 
 }
