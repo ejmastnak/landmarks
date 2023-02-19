@@ -29,7 +29,7 @@ watch(() => props.message, () => {
     <div
       v-show="message && show"
       @click="hide"
-      class="absolute flex items-center w-full mx-auto max-w-4xl text-sm text-gray-800 bg-blue-50 px-4 py-3 -mt-6 rounded-b-md border-b-2 border-blue-400"
+      class="absolute inset-x-0 max-w-4xl w-11/12 mx-auto  flex items-center text-sm text-gray-800 bg-blue-50 px-4 py-3 -mt-6 rounded-b-md border-b-2 border-blue-400"
     >
       <InformationCircleIcon class="w-5 h-5 text-gray-600" />
       <span class="ml-1 translate-y-px">{{ message }}</span>

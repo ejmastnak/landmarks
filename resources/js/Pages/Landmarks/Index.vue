@@ -3,7 +3,7 @@ import { Inertia } from '@inertiajs/inertia'
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon, ArchiveBoxArrowDownIcon } from '@heroicons/vue/24/outline'
 import DeleteDialog from "@/Components/TheDeleteDialog.vue";
-import FilterSelect from "@/Components/TheFilter.vue";
+import FilterSelect from "@/Components/TheFilterSelect.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryLinkButton from "@/Components/PrimaryLinkButton.vue";
 import { ref, watch, computed } from 'vue'
@@ -45,6 +45,7 @@ function shouldDisplay(landmark) {
   return ((selectedLandmarkType.value.id === allLandmarkType.id) || (landmark.landmark_type_id === selectedLandmarkType.value.id)) && ((selectedCountry.value.id === allCountry.id) || (landmark.country_id === selectedCountry.value.id))
 }
 
+// Used conditionally display a "No results found" message.
 const numDisplayedResults = computed(() => {
   return filteredLandmarks.value.filter(result => shouldDisplay(result.obj)).length
 })
@@ -89,46 +90,44 @@ export default {
     <!-- Title and new landmark top row -->
     <div class="flex">
 
-      <div class="">
+      <div class="mr-2">
         <h1 class="font-semibold text-2xl text-gray-900 p-1">Ottoman landmarks in Europe</h1>
-        <p class="mt-2 w-2/3 text-gray-500">
+        <p class="mt-2 w-11/12 4 sm:w-2/3 text-gray-500">
           This is a list of Ottoman landmarks in Europe.
           You can use this page to view, edit, delete, or add new landmarks. 
         </p>
       </div>
 
-
       <div class="flex flex-col ml-auto">
         <!-- New landmark button -->
         <PrimaryLinkButton 
           :href="route('landmarks.create')"
-          class="flex items-center py-2.5 mt-1 normal-case w-full">
+          class="flex items-center py-2 sm:py-2.5 mt-1 normal-case w-full"
+        >
           <PlusCircleIcon class="w-6 h-6" />
-          <p class="ml-2 text-base">New landmark</p>
+          <p class="ml-2 text-base">New <span class="hidden sm:inline">landmark</span></p>
         </PrimaryLinkButton>
 
-        <form @submit.prevent="exportToJSON">
-          <SecondaryButton 
-            class="flex items-center mt-2 normal-case sm:w-max"
-            :disabled="exportDisabled"
-            @click="exportToJSON"
-          >
-            <ArchiveBoxArrowDownIcon class="w-6 h-6" />
-            <p class="ml-2 text-sm">Export landmarks</p>
-          </SecondaryButton>
-        </form>
+        <!-- Export as JSON button -->
+        <SecondaryButton 
+          class="flex items-center mt-2 normal-case sm:w-max"
+          :disabled="exportDisabled"
+          @click="exportToJSON"
+        >
+          <ArchiveBoxArrowDownIcon class="w-6 h-6" />
+          <p class="ml-2 text-sm">Export <span class="hidden sm:inline">landmarks</span></p>
+        </SecondaryButton>
       </div>
 
     </div>
 
-    <!-- Begin Flowbite table -->
+    <!-- Main landmark display panel -->
     <div class="mt-8 min-h-screen relative overflow-x-auto border border-gray-100 shadow-md sm:rounded-lg">
 
       <!-- Search/filter components -->
-      <div class="flex items-center px-2 py-4 bg-white dark:bg-gray-900">
-
+      <div class="flex flex-col sm:flex-row items-start px-2 py-4 bg-white dark:bg-gray-900">
         <!-- Input for search -->
-        <div class="">
+        <div class="sm:mr-3">
           <label for="table-search" class="ml-1 text-sm text-gray-500">
             Search by name or city
           </label>
@@ -140,14 +139,14 @@ export default {
             <input 
               type="text"
               id="table-search"
-              class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+              class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 sm:w-64 md:w-80 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               v-model="search"
             />
           </div>
         </div>
 
         <!-- Select menu for type -->
-        <div class="ml-auto">
+        <div class="sm:ml-auto">
           <FilterSelect
             :options="filterLandmarkTypes"
             labelText="Filter by type"
@@ -157,7 +156,7 @@ export default {
         </div>
 
         <!-- Select menu for country -->
-        <div class="ml-2">
+        <div class="sm:ml-3">
           <FilterSelect
             :options="filterCountries"
             labelText="Filter by country"
@@ -166,7 +165,7 @@ export default {
         </div>
       </div>
 
-      <table class="table-fixed w-full text-base text-left text-gray-500 dark:text-gray-400">
+      <table class="sm:table-fixed w-full text-sm sm:text-base text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3 bg-blue-100">
@@ -191,10 +190,10 @@ export default {
             v-show="shouldDisplay(landmark.obj)"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
-            <th scope="row" class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+            <th scope="row" class="px-5 py-4 font-semibold text-gray-900 dark:text-white">
               <Link
                 :href="route('landmarks.edit', landmark.obj.id)"
-                class="hover:underline hover:text-blue-700">
+                class="hover:underline hover:text-blue-700 rounded p-1">
                 {{landmark.obj.name}}
               </Link>
             </th>
@@ -212,7 +211,7 @@ export default {
               <button 
                 type="button" 
                 @click="deleteDialog.openToConfirmDeletion(landmark.obj.id)"
-                class="block mx-auto p-1 rounded-full hover:border hover:border-red-400 hover:bg-red-200"
+                class="block mx-auto p-1 rounded-full hover:border hover:border-red-400 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-600"
               >
                 <TrashIcon class="w-5 h-5 hover:text-red-700" />
               </button>

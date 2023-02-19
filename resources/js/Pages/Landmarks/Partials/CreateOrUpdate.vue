@@ -36,8 +36,6 @@ const submit = () => {
     form.post(route('landmarks.store'));
   } else if (props.action === "update") {
     form.put(route('landmarks.update', props.landmark.id));
-  } else {
-    console.log("Error in Landmarks/Partials/CreateOrUpdate: Unrecognized action: " + props.action);
   }
 };
 </script>
@@ -45,7 +43,7 @@ const submit = () => {
 <template>
   <form @submit.prevent="submit" class="mt-4">
 
-    <div>
+    <div class="w-full max-w-[22rem]">
       <InputLabel for="name" value="Name" />
       <TextInput
         id="name"
@@ -57,27 +55,27 @@ const submit = () => {
       <InputError class="mt-2" :message="form.errors.name" />
     </div>
 
-    <div class="mt-2">
+    <div class="mt-2 w-full max-w-[14rem]">
       <Combobox labelText="Type" :options="landmarkTypes" v-model="form.landmarkType" />
       <InputError class="mt-2" :message="form.errors.landmarkType" />
       <InputError class="mt-2" :message="form.errors['landmarkType.id']" />
       <InputError class="mt-2" :message="form.errors['landmarkType.name']" />
     </div>
 
-    <div class="flex mt-4">
-      <div>
+    <div class="flex flex-col sm:flex-row mt-4">
+      <div class="max-w-[14rem]">
         <InputLabel for="city" value="City" />
         <TextInput
           id="city"
           type="text"
-          class="mt-1 block w-48"
+          class="mt-1 block w-full"
           v-model="form.city"
           required
         />
         <InputError class="mt-2" :message="form.errors.city" />
       </div>
 
-      <div class="ml-2">
+      <div class="mt-4 sm:mt-0 sm:ml-2 max-w-[10rem]">
         <Combobox labelText="Country" :options="countries" v-model="form.country" />
         <InputError class="mt-2" :message="form.errors.country" />
         <InputError class="mt-2" :message="form.errors['country.id']" />
@@ -86,7 +84,7 @@ const submit = () => {
 
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 w-full max-w-[36rem]">
       <InputLabel for="comment" value="Comments" />
       <TextAreaInput
         id="comment"

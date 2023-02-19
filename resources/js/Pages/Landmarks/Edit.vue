@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-  <div class="mt-16">
+  <div class="mt-16 max-w-lg mx-auto">
     <Head title="Edit landmark" />
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">Edit landmark</h1>
     <CreateOrUpdate 
