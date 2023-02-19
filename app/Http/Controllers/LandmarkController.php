@@ -151,17 +151,6 @@ class LandmarkController extends Controller
     }
 
     /**
-     *  Used to save lists of Landmarks to JSON files. The method accepts a
-     *  request containing a JSON array of Landmark objects and saves the JSON
-     *  array to disk.
-     */
-    public function exportToJSON(Request $request)
-    {
-
-    }
-
-
-    /**
      *  Validates an incoming store or update request.
      *  Request is expected to contain:
      *  name: string
@@ -234,35 +223,22 @@ class LandmarkController extends Controller
     }
 
     /**
-     *  Input a HTTP POST request containing a JSON array of landmarks.
+     *  Used to save lists of Landmarks to JSON files. The method accepts a
+     *  request containing a JSON array of Landmark IDs, looks up the landmarks
+     *  by ID, and returns a JSON response with relevant landmark information.
      */
-    public function exportLandmarks(Request $request)
-    {
-        $landmarks = Landmark::findMany($request->landmarkIDs)->load('landmark_type:id,name', 'country:id,name');
-        $landmarks = $landmarks->map(fn($l) => [
-            'id' => $l->id,
-            'name' => $l->name,
-            'landmark_type' => $l->landmark_type['name'],
-            'city' => $l->city,
-            'country' => $l->country['name'],
-            'comment' => $l->comment
-        ]);
-
-        $filename = "landmarks_export_" . date(DATE_ATOM, time()) . ".json";
-
-        Storage::disk('public')->put($filename, json_encode($landmarks, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-
-        return Redirect::route('landmarks.index')->with('download', $filename);
-
-        // return Storage::download('public/test.json');
-
-    }
-
-    public function downloadLandmarks(Request $request)
-    {
-        if($request->filename) {
-            return Storage::download('public/' . $request->filename);
-            // return Response::download('test.json', 'file.json', $headers);
+    public function exportLandmarks(Request $request) {
+        if ($request->landmarkIDs) {
+            $landmarks = Landmark::findMany($request->landmarkIDs)->load('landmark_type:id,name', 'country:id,name');
+            $landmarks = $landmarks->map(fn($l) => [
+                'id' => $l->id,
+                'name' => $l->name,
+                'landmark_type' => $l->landmark_type['name'],
+                'city' => $l->city,
+                'country' => $l->country['name'],
+                'comment' => $l->comment
+            ]);
+            return Response::json($landmarks)->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
     }
 

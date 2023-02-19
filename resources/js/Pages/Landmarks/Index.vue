@@ -6,8 +6,7 @@ import DeleteDialog from "@/Components/TheDeleteDialog.vue";
 import FilterSelect from "@/Components/TheFilter.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryLinkButton from "@/Components/PrimaryLinkButton.vue";
-import { ref, watch, onMounted, onBeforeUpdate, computed, reactive } from 'vue'
-import { useForm, usePage } from '@inertiajs/inertia-vue3';
+import { ref, watch, computed } from 'vue'
 import fuzzysort from 'fuzzysort'
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
@@ -57,39 +56,22 @@ function updateFilterOnDeletion(id) {
 }
 const deleteDialog = ref(null)
 
-// For exporting Landmarks to JSON
-const exportForm = useForm({
-  landmarkIDs: []
-});
-
+let exportDisabled = ref(false)
 function exportToJSON() {
-
-  // Extract IDs of landmarks to export
-  exportForm.landmarkIDs = filteredLandmarks.value.filter(l => shouldDisplay(l.obj)).map(l => l.obj.id);
-
-  exportForm.post(route('landmarks.export'), {
-    onSuccess: () => {
-      exportForm.reset()
-      const filename = usePage().props.value.flash.download
-      if (filename) {
-        const data = {filename: filename};
-        fetch(route('landmarks.download'), {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            'X-XSRF-TOKEN': 'eyJpdiI6Im5uTFBYYjhueG5mdFBzRkg4eGRJc2c9PSIsInZhbHVlIjoiRUdHZGcvMjdnOEdxNW5EeWZBeG5HWUh1aGR4SW51MXR0QmtXT3pVSFoyRXlzZG9SNVBTM3FqNDZ0WjV1RWpMQk81V1YxYzk5Q2t1NUdFZlZZQjdBaERZakR1dDJ0WU5paU1UZ1ZjSjAyTUNyYmpVM09pTEsrYWc5dnhQQmQ0aHMiLCJtYWMiOiJkZTMxY2M5YzUyNDcxMjA2YzAwNTMzNmQ3NmU2MjE5NzUwOWJmMmVmMjY5M2IxNWJlZmM1NzFlN2EyY2FkYTZkIiwidGFnIjoiIn0='
-          }, 
-          body: JSON.stringify(data)
-        }).then((res) => res.blob())
-          .then((blob) => {
-            saveAs(blob, filename);
-          });
-      }
-    },
-    onCancel: () => exportForm.reset(),
-  });
+  exportDisabled.value = true
+  axios({
+    url: route('landmarks.export'),
+    method: 'POST',
+    data: {landmarkIDs: filteredLandmarks.value.filter(l => shouldDisplay(l.obj)).map(l => l.obj.id)},
+    headers: {
+      'Content-Type': 'application/json',
+    }, 
+    responseType: 'blob',
+  }).then((response) => {
+      saveAs(response.data, "landmark_export_" + new Date().toISOString().slice(0,-5).replaceAll(":", "-") + "Z.json" );
+      exportDisabled.value = false
+    });
 }
-
 </script>
 
 <script>
@@ -120,24 +102,21 @@ export default {
         <!-- New landmark button -->
         <PrimaryLinkButton 
           :href="route('landmarks.create')"
-          class="flex items-center mt-1 normal-case text-xl w-full">
+          class="flex items-center py-2.5 mt-1 normal-case w-full">
           <PlusCircleIcon class="w-6 h-6" />
           <p class="ml-2 text-base">New landmark</p>
         </PrimaryLinkButton>
-        <!-- Export to JSON -->
 
         <form @submit.prevent="exportToJSON">
           <SecondaryButton 
-            class="flex items-center mt-2 normal-case text-xl sm:w-max"
-            :disabled="exportForm.processing"
+            class="flex items-center mt-2 normal-case sm:w-max"
+            :disabled="exportDisabled"
             @click="exportToJSON"
           >
             <ArchiveBoxArrowDownIcon class="w-6 h-6" />
-            <p class="ml-2 text-base">Export as JSON</p>
+            <p class="ml-2 text-sm">Export landmarks</p>
           </SecondaryButton>
         </form>
-
-        {{$page.props.csrf_token}}
       </div>
 
     </div>

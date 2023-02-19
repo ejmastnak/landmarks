@@ -18,7 +18,6 @@ use App\Http\Controllers\LandmarkController;
 |
 */
 
-Route::post('landmarks/download', [LandmarkController::class, 'downloadLandmarks'])->name('landmarks.download');
 Route::post('landmarks/export', [LandmarkController::class, 'exportLandmarks'])->name('landmarks.export');
 Route::resource('/', LandmarkController::class);
 Route::resource('landmarks', LandmarkController::class);
