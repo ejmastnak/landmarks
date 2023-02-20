@@ -23,7 +23,7 @@ class LandmarkController extends Controller
      */
     public function index()
     {
-        $landmarks = Landmark::all(['id', 'name', 'landmark_type_id', 'city', 'country_id', 'link']);
+        $landmarks = Landmark::all(['id', 'name', 'landmark_type_id', 'city', 'country_id']);
         $landmarks->load(['country:id,name', 'landmark_type:id,name']);
         return Inertia::render('Landmarks/Index', [
             'landmarks' => $landmarks,
@@ -91,7 +91,7 @@ class LandmarkController extends Controller
     public function edit($id)
     {
         $landmark = Landmark::query()
-        ->get(['id', 'name', 'landmark_type_id', 'city', 'country_id', 'link'])
+        ->get(['id', 'name', 'landmark_type_id', 'city', 'country_id', 'comment'])
         ->find($id)
         ->load(['country:id,name', 'landmark_type:id,name']);
         return inertia('Landmarks/Edit', [
