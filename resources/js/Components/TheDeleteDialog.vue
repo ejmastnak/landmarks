@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from 'vue'
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 
 import {
   TransitionRoot,
@@ -40,7 +40,7 @@ function closeAndDelete() {
   isOpen.value = false
   if (idToDelete >= 0) {
     const id = idToDelete;  // save deleted id before overwriting with -1
-    Inertia.delete(route('landmarks.destroy', idToDelete), {
+    router.delete(route('landmarks.destroy', idToDelete), {
       onSuccess: () => {
         emit('deletedALandmark', id)
       }

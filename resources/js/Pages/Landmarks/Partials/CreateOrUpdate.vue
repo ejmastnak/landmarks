@@ -6,7 +6,7 @@ import TextAreaInput from '@/Components/TextAreaInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Combobox from '@/Components/Combobox.vue';
 import SecondaryLinkButton from "@/Components/SecondaryLinkButton.vue";
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -42,6 +42,10 @@ const submit = () => {
 
 <template>
   <form @submit.prevent="submit" class="mt-4">
+
+    <pre>
+      {{landmark}}
+    </pre>
 
     <div class="w-full max-w-[22rem]">
       <InputLabel for="name" value="Name" />

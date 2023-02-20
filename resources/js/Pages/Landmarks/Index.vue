@@ -1,6 +1,5 @@
 <script setup>
-import { Inertia } from '@inertiajs/inertia'
-import { Head, Link } from '@inertiajs/inertia-vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon, ArchiveBoxArrowDownIcon } from '@heroicons/vue/24/outline'
 import DeleteDialog from "@/Components/TheDeleteDialog.vue";
 import FilterSelect from "@/Components/TheFilterSelect.vue";
