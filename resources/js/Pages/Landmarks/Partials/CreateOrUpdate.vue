@@ -43,10 +43,6 @@ const submit = () => {
 <template>
   <form @submit.prevent="submit" class="mt-4">
 
-    <pre>
-      {{landmark}}
-    </pre>
-
     <div class="w-full max-w-[22rem]">
       <InputLabel for="name" value="Name" />
       <TextInput
