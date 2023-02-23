@@ -84,7 +84,7 @@ export default {
 <template>
 
   <div class="mt-8">
-    <Head title="Landmarks" />
+    <Head title="Home" />
 
     <!-- Title and new landmark top row -->
     <div class="flex">
