@@ -124,7 +124,7 @@ export default {
     <div class="mt-8 min-h-screen relative overflow-x-auto border border-gray-100 shadow-md sm:rounded-lg">
 
       <!-- Search/filter components -->
-      <div class="flex flex-col sm:flex-row items-start px-2 py-4 bg-white dark:bg-gray-900">
+      <div class="flex flex-col sm:flex-row items-start px-2 py-4 bg-white">
         <!-- Input for search -->
         <div class="sm:mr-3">
           <label for="table-search" class="ml-1 text-sm text-gray-500">
@@ -132,13 +132,13 @@ export default {
           </label>
           <div class="relative">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <MagnifyingGlassIcon class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" />
+              <MagnifyingGlassIcon class="w-5 h-5 text-gray-500" />
             </div>
 
             <input 
               type="text"
               id="table-search"
-              class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 sm:w-64 md:w-80 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+              class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 sm:w-64 md:w-80 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" 
               v-model="search"
             />
           </div>
@@ -164,8 +164,8 @@ export default {
         </div>
       </div>
 
-      <table class="sm:table-fixed w-full text-sm sm:text-base text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table class="sm:table-fixed w-full text-sm sm:text-base text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
             <th scope="col" class="px-6 py-3 bg-blue-100">
               Name
@@ -187,9 +187,9 @@ export default {
           <tr 
             v-for="landmark in filteredLandmarks" :key="landmark.obj.id"
             v-show="shouldDisplay(landmark.obj)"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            class="bg-white border-b"
           >
-            <th scope="row" class="px-5 py-4 font-semibold text-gray-900 dark:text-white">
+            <th scope="row" class="px-5 py-4 font-semibold text-gray-900">
               <Link
                 :href="route('landmarks.edit', landmark.obj.id)"
                 class="hover:underline hover:text-blue-700 rounded p-1">
