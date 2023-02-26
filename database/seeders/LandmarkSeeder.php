@@ -26,10 +26,10 @@ class LandmarkSeeder extends Seeder
         $json = Storage::disk('local')->get('/json/landmarks.json');
         $landmarks = json_decode($json, true);
 
-        foreach ($landmarks['landmarks'] as $landmark) {
+        foreach ($landmarks as $landmark) {
 
             // Name of landmark type, e.g. "Mosque", "Fortress", ...
-            $type_name = $landmark['type'];
+            $type_name = $landmark['landmark_type'];
             // Try to find matching LandmarkType database record
             $type = LandmarkType::where('name', $type_name)->first();
             // Create new LandmarkType record if none exists
@@ -50,7 +50,6 @@ class LandmarkSeeder extends Seeder
                 'city' => $landmark['city'],
                 'country_id' => $country->id,
                 'comment' => $landmark['comment'] == '' ? null : $landmark['comment'],
-                'link' => $landmark['link'] == '' ? null : $landmark['link'],
             ]);
         }
     }
