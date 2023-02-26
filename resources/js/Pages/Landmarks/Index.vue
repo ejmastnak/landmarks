@@ -191,6 +191,7 @@ export default {
           >
             <th scope="row" class="px-5 py-4 font-semibold text-gray-900">
               <Link
+                preserve-scroll
                 :href="route('landmarks.edit', landmark.obj.id)"
                 class="hover:underline hover:text-blue-700 rounded p-1">
                 {{landmark.obj.name}}

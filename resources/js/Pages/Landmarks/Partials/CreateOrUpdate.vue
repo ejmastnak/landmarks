@@ -33,9 +33,9 @@ const form = useForm({
 
 const submit = () => {
   if (props.action === "create") {
-    form.post(route('landmarks.store'));
+    form.post(route('landmarks.store'), { preserveScroll: true} );
   } else if (props.action === "update") {
-    form.put(route('landmarks.update', props.landmark.id));
+    form.put(route('landmarks.update', props.landmark.id), { preserveScroll: true});
   }
 };
 </script>
@@ -100,7 +100,9 @@ const submit = () => {
         <span v-if="action === 'update'">Update</span>
         <span v-else>Create</span>
       </PrimaryButton>
-      <SecondaryLinkButton class="ml-4" :href="route('landmarks.index')">Cancel</SecondaryLinkButton>
+      <SecondaryLinkButton class="ml-4" :href="route('landmarks.index')">
+        Cancel
+      </SecondaryLinkButton>
     </div>
 
   </form>
