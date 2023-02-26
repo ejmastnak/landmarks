@@ -97,7 +97,8 @@ const submit = () => {
 
     <div class="mt-6 ml-auto">
       <PrimaryButton class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-        Update
+        <span v-if="action === 'update'">Update</span>
+        <span v-else>Create</span>
       </PrimaryButton>
       <SecondaryLinkButton class="ml-4" :href="route('landmarks.index')">Cancel</SecondaryLinkButton>
     </div>
