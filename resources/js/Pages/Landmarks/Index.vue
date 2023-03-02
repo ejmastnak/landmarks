@@ -15,6 +15,14 @@ const props = defineProps({
   landmarks: Array,
   filterCountries: Array,
   filterLandmarkTypes: Array,
+  showDeleteOption: {
+    type: Boolean,
+    default: false
+  },
+  showEditOption: {
+    type: Boolean,
+    default: false
+  },
 })
 
 const allLandmarkType = props.filterLandmarkTypes.find($l => $l.name === 'All');
@@ -180,7 +188,7 @@ export default {
               Country
             </th>
             <!-- For trash icon -->
-            <th scope="col" class="w-10 bg-blue-100" />
+            <th v-if="showDeleteOption" scope="col" class="w-10 bg-blue-100" />
           </tr>
         </thead>
         <tbody>
@@ -192,7 +200,7 @@ export default {
             <th scope="row" class="px-5 py-4 font-semibold text-gray-900">
               <Link
                 preserve-scroll
-                :href="route('landmarks.edit', landmark.obj.id)"
+                :href="showEditOption ? route('landmarks.edit', landmark.obj.id) : route('landmarks.show', landmark.obj.id)"
                 class="hover:underline hover:text-blue-700 rounded p-1">
                 {{landmark.obj.name}}
               </Link>
@@ -206,8 +214,7 @@ export default {
             <td class="px-6 py-4">
               {{landmark.obj.country.name}}
             </td>
-            <td>
-
+            <td v-if="showDeleteOption">
               <button 
                 type="button" 
                 @click="deleteDialog.openToConfirmDeletion(landmark.obj.id)"
@@ -215,7 +222,6 @@ export default {
               >
                 <TrashIcon class="w-5 h-5 hover:text-red-700" />
               </button>
-
             </td>
           </tr>
         </tbody>
