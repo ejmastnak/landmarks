@@ -11,7 +11,7 @@ const props = defineProps({
     status: String,
 });
 
-const user = usePage().props.value.auth.user;
+const user = usePage().props.auth.user;
 
 const form = useForm({
     name: user.name,

@@ -1,9 +1,10 @@
 <script setup>
 import { InformationCircleIcon } from '@heroicons/vue/24/outline'
-import {watch, ref } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+import {watch, ref, computed } from 'vue'
 
 const props = defineProps({
-  message: String
+  message: String,
 })
 
 const show = ref(true)
@@ -12,13 +13,13 @@ function hide() {
 }
 
 // Show flash message when props.flash.message changes,
-// then hide the dialog after 5 seconds.
+// then hide the dialog after a few seconds.
 watch(() => props.message, () => {
   if (props.message) {
     show.value = true;
     setTimeout(() => {
       show.value = false;
-    }, 5000);
+    }, 4000);
   }
 });
 
@@ -29,7 +30,7 @@ watch(() => props.message, () => {
     <div
       v-show="message && show"
       @click="hide"
-      class="absolute inset-x-0 max-w-4xl w-11/12 mx-auto  flex items-center text-sm text-gray-800 bg-blue-50 px-4 py-3 -mt-6 rounded-b-md border-b-2 border-blue-400"
+      class="absolute inset-x-0 mx-auto  flex items-center text-sm text-gray-800 bg-blue-50 px-4 py-3 rounded-b-md border-b-2 border-blue-400 z-50"
     >
       <InformationCircleIcon class="w-5 h-5 text-gray-600" />
       <span class="ml-1 translate-y-px">{{ message }}</span>
