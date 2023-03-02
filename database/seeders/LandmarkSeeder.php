@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Landmark;
 use App\Models\LandmarkType;
 use App\Models\Country;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -23,6 +24,7 @@ class LandmarkSeeder extends Seeder
         DB::table('landmark_types')->delete();
         DB::table('countries')->delete();
 
+        $admin = User::where('name', 'admin')->first();
         $json = Storage::disk('local')->get('/json/landmarks.json');
         $landmarks = json_decode($json, true);
 
@@ -50,6 +52,7 @@ class LandmarkSeeder extends Seeder
                 'city' => $landmark['city'],
                 'country_id' => $country->id,
                 'comment' => $landmark['comment'] == '' ? null : $landmark['comment'],
+                'user_id' => $admin->id,
             ]);
         }
     }
