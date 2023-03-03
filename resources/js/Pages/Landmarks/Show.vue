@@ -6,7 +6,7 @@ import SecondaryLinkButton from '@/Components/SecondaryLinkButton.vue'
 
 const props = defineProps({
   landmark: Object,
-  showEditOption: {
+  userCanEdit: {
     type: Boolean,
     default: false
   }
@@ -36,8 +36,8 @@ export default {
         v-if="landmark.comment"
         class="mt-6 mb-2"
       >
-        <p class="font-semibold ml-1">Notes</p>
-        <p class="p-2 border border-gray-100 rounded-md text-gray-800">
+        <p class="font-semibold">Notes</p>
+        <p class="text-gray-800 mt-1">
           {{landmark.comment}}
         </p>
       </div>
@@ -47,7 +47,7 @@ export default {
       </PrimaryLinkButton>
 
       <SecondaryLinkButton
-        v-if="showEditOption"
+        v-if="userCanEdit"
         class="mt-6 ml-2"
         :href="route('landmarks.edit', landmark.id)"
       >

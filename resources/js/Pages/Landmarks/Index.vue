@@ -101,8 +101,8 @@ export default {
     <!-- Title and new landmark top row -->
     <div class="flex">
 
-      <div class="mr-2">
-        <h1 class="font-semibold text-2xl text-gray-900 p-1">Ottoman landmarks in Europe</h1>
+      <div class="mr-2 p-1">
+        <h1 class="font-semibold text-2xl text-gray-900">Ottoman landmarks in Europe</h1>
         <p class="mt-2 w-11/12 4 sm:w-2/3 text-gray-500">
           This is a list of Ottoman landmarks in Europe.
           You can use this page to view, edit, delete, or add new landmarks. 
@@ -112,7 +112,7 @@ export default {
       <div class="flex flex-col ml-auto">
         <!-- New landmark button -->
         <PrimaryLinkButton 
-          :href="userCanCreate ? route('landmarks.create') : route('login')"
+          :href="route('landmarks.create')"
           class="flex items-center py-2 sm:py-2.5 mt-1 normal-case w-full"
           :class="{'bg-blue-200': !userCanCreate}"
         >
@@ -205,7 +205,7 @@ export default {
             <th scope="row" class="px-5 py-4 font-semibold text-gray-900">
               <Link
                 preserve-scroll
-                :href="userCanEdit ? route('landmarks.edit', landmark.obj.id) : route('landmarks.show', landmark.obj.id)"
+                :href="route('landmarks.show', landmark.obj.id)"
                 class="hover:underline hover:text-blue-700 rounded p-1">
                 {{landmark.obj.name}}
               </Link>
