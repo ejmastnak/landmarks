@@ -83,7 +83,7 @@ const submit = () => {
                   Register an account
                 </Link>
 
-                <SecondaryLinkButton :href="route('landmarks.index')" class="ml-auto" >
+                <SecondaryLinkButton :href="route('home')" class="ml-auto" >
                     Cancel
                 </SecondaryLinkButton>
 

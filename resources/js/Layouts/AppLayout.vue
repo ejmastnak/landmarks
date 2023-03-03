@@ -26,7 +26,7 @@ const showingNavigationDropdown = ref(false);
             <div class="flex">
               <!-- Navigation Links -->
               <div class="flex space-x-8">
-                <NavLink :href="route('landmarks.index')" :active="route().current('landmarks.index')">
+                <NavLink :href="route('home')" :active="route().current('landmarks.index')">
                   Home
                 </NavLink>
               </div>
