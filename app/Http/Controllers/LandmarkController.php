@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Landmark;
 use App\Models\Country;
 use App\Models\LandmarkType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -68,7 +69,9 @@ class LandmarkController extends Controller
             'landmark_type_id' => $landmark_type_id,
             'city' => $request->city,
             'country_id' => $country_id,
-            'comment' => $request->comment
+            'comment' => $request->comment,
+            // Use admin as default user for creating landmarks
+            'user_id' => $request->user() ? $request->user()->id : User::where('name', 'admin')->first()->id,
         ]);
 
         return Redirect::route('landmarks.index')->with('message', 'Success! Landmark created successfully.');
