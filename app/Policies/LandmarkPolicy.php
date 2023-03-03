@@ -42,12 +42,27 @@ class LandmarkPolicy
     }
 
     /**
+     * Determine whether the user can update the model.
+     */
+    public function updateAny(User $user): bool
+    {
+        // Either user has global edit privileges or created the landmark
+        return $user->can_edit;
+    }
+
+    /**
      * Determine whether the user can delete the model.
      */
     public function delete(User $user, Landmark $landmark): bool
     {
         // Either user has global privileges or created the landmark
         return $user->can_delete || ($landmark->user_id === $user->id);
+    }
+
+    public function deleteAny(User $user): bool
+    {
+        // Either user has global privileges or created the landmark
+        return $user->can_delete;
     }
 
     /**
@@ -63,7 +78,6 @@ class LandmarkPolicy
      */
     public function forceDelete(User $user, Landmark $landmark): bool
     {
-        // Either user has global privileges or created the landmark
-        return $user->can_delete || ($landmark->user_id === $user->id);
+        //
     }
 }
