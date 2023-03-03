@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Validation\ValidationException;
+use App\Models\Landmark;
 
 class ProfileController extends Controller
 {
@@ -63,6 +64,13 @@ class ProfileController extends Controller
             throw ValidationException::withMessages(['password' => 'You intentionally cannot delete the admin account.']);
             return Redirect::back();
         }
+
+        // Admin user inherits the deleted user's landmarks
+        $users_landmarks = Landmark::all()->where('user_id', $user->id);
+        $users_landmarks->map(function($landmark) {
+            $landmark->update(['user_id' => 1]);
+            $landmark->save();
+        });
 
         Auth::logout();
 
