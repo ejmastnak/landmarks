@@ -71,7 +71,7 @@ class LandmarkController extends Controller
             'country_id' => $country_id,
             'comment' => $request->comment,
             // Use admin as default user for creating landmarks
-            'user_id' => $request->user() ? $request->user()->id : User::where('name', 'admin')->first()->id,
+            'user_id' => $request->user() ? $request->user()->id : User::where('id', 1)->first()->id,
         ]);
 
         return Redirect::route('landmarks.index')->with('message', 'Success! Landmark created successfully.');

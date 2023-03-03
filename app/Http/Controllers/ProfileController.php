@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -57,6 +58,11 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        if($user->id === 2) {
+            throw ValidationException::withMessages(['password' => 'You intentionally cannot delete the admin account.']);
+            return Redirect::back();
+        }
 
         Auth::logout();
 
