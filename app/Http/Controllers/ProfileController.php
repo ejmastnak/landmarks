@@ -59,7 +59,7 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
-        if($user->id === 2) {
+        if($user->id === 1) {
             throw ValidationException::withMessages(['password' => 'You intentionally cannot delete the admin account.']);
             return Redirect::back();
         }
