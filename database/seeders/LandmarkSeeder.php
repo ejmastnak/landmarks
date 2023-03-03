@@ -24,7 +24,7 @@ class LandmarkSeeder extends Seeder
         DB::table('landmark_types')->delete();
         DB::table('countries')->delete();
 
-        $admin = User::where('name', 'admin')->first();
+        $admin = User::where('id', 1)->first();
         $json = Storage::disk('local')->get('/json/landmarks.json');
         $landmarks = json_decode($json, true);
 
