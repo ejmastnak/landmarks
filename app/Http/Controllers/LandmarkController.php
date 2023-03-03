@@ -21,14 +21,19 @@ class LandmarkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $landmarks = Landmark::all(['id', 'name', 'landmark_type_id', 'city', 'country_id']);
         $landmarks->load(['country:id,name', 'landmark_type:id,name']);
+        $user = $request->user() ? $request->user() : null;
+
         return Inertia::render('Landmarks/Index', [
             'landmarks' => $landmarks,
             'filterCountries' => Country::countriesForFiltering(),
             'filterLandmarkTypes' => LandmarkType::landmarkTypesForFiltering(),
+            'userCanEdit' => $user ? ($user->can_edit === 1) : false,
+            'userCanDelete' => $user ? ($user->can_delete === 1) : false,
+            'userCanCreate' => $user ? ($user->can_create === 1) : false,
         ]);
     }
 
@@ -75,10 +80,17 @@ class LandmarkController extends Controller
      * @param  \App\Models\Landmark  $landmark
      * @return \Illuminate\Http\Response
      */
-    public function show(Landmark $landmark)
+    public function show(Request $request, $id)
     {
+        $landmark = Landmark::query()
+        ->get(['id', 'name', 'landmark_type_id', 'city', 'country_id', 'comment'])
+        ->find($id)
+        ->load(['country:id,name', 'landmark_type:id,name']);
+        $user = $request->user() ? $request->user() : null;
+
         return inertia('Landmarks/Show', [
             'landmark' => $landmark,
+            'userCanEdit' => $user ? ($user->can_edit === 1) : false,
         ]);
     }
 

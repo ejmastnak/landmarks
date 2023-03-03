@@ -15,11 +15,15 @@ const props = defineProps({
   landmarks: Array,
   filterCountries: Array,
   filterLandmarkTypes: Array,
-  showDeleteOption: {
+  userCanDelete: {
     type: Boolean,
     default: false
   },
-  showEditOption: {
+  userCanCreate: {
+    type: Boolean,
+    default: false
+  },
+  userCanEdit: {
     type: Boolean,
     default: false
   },
@@ -108,8 +112,9 @@ export default {
       <div class="flex flex-col ml-auto">
         <!-- New landmark button -->
         <PrimaryLinkButton 
-          :href="route('landmarks.create')"
+          :href="userCanCreate ? route('landmarks.create') : route('login')"
           class="flex items-center py-2 sm:py-2.5 mt-1 normal-case w-full"
+          :class="{'bg-blue-200': !userCanCreate}"
         >
           <PlusCircleIcon class="w-6 h-6" />
           <p class="ml-2 text-base">New <span class="hidden sm:inline">landmark</span></p>
@@ -188,7 +193,7 @@ export default {
               Country
             </th>
             <!-- For trash icon -->
-            <th v-if="showDeleteOption" scope="col" class="w-10 bg-blue-100" />
+            <th v-if="userCanDelete" scope="col" class="w-10 bg-blue-100" />
           </tr>
         </thead>
         <tbody>
@@ -200,7 +205,7 @@ export default {
             <th scope="row" class="px-5 py-4 font-semibold text-gray-900">
               <Link
                 preserve-scroll
-                :href="showEditOption ? route('landmarks.edit', landmark.obj.id) : route('landmarks.show', landmark.obj.id)"
+                :href="userCanEdit ? route('landmarks.edit', landmark.obj.id) : route('landmarks.show', landmark.obj.id)"
                 class="hover:underline hover:text-blue-700 rounded p-1">
                 {{landmark.obj.name}}
               </Link>
@@ -214,7 +219,7 @@ export default {
             <td class="px-6 py-4">
               {{landmark.obj.country.name}}
             </td>
-            <td v-if="showDeleteOption">
+            <td v-if="userCanDelete">
               <button 
                 type="button" 
                 @click="deleteDialog.openToConfirmDeletion(landmark.obj.id)"
