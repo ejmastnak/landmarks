@@ -27,5 +27,14 @@ class UserSeeder extends Seeder
         'can_delete' => true,
         ]);
 
+        User::create([
+        'name' => 'Guest',
+        'email' => 'ej@ej.com',
+        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        'can_create' => true,
+        'can_edit' => false,
+        'can_delete' => false,
+        ]);
+
     }
 }
