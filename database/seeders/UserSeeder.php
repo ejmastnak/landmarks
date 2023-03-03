@@ -21,19 +21,19 @@ class UserSeeder extends Seeder
         User::create([
         'name' => 'admin',
         'email' => 'accounts@ejmastnak.com',
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        'password' => '$2y$10$QAE1Dj/HEsv99jGhzSyJv.6bmUSgSnOBzIHDsufrhnWsLZCUqMY2i',
         'can_create' => true,
         'can_edit' => true,
         'can_delete' => true,
         ]);
 
         User::create([
-        'name' => 'Guest',
-        'email' => 'ej@ej.com',
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        'name' => 'Martin Mastnak',
+        'email' => 'martin.mastnak3@gmail.com',
+        'password' => '$2y$10$KAsviXhhB0VGxm79PWjsvOxha.IihX2ymL0qli.sf8DWbn12nDZiu',
         'can_create' => true,
-        'can_edit' => false,
-        'can_delete' => false,
+        'can_edit' => true,
+        'can_delete' => true,
         ]);
 
     }
