@@ -29,7 +29,7 @@ class LandmarkPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can_create;
+        return ($user->can_create === 1);
     }
 
     /**
@@ -38,7 +38,7 @@ class LandmarkPolicy
     public function update(User $user, Landmark $landmark): bool
     {
         // Either user has global edit privileges or created the landmark
-        return $user->can_edit || ($landmark->user_id === $user->id);
+        return ($user->can_edit === 1) || ($landmark->user_id === $user->id);
     }
 
     /**
@@ -47,7 +47,7 @@ class LandmarkPolicy
     public function updateAny(User $user): bool
     {
         // Either user has global edit privileges or created the landmark
-        return $user->can_edit;
+        return ($user->can_edit === 1);
     }
 
     /**
@@ -56,13 +56,13 @@ class LandmarkPolicy
     public function delete(User $user, Landmark $landmark): bool
     {
         // Either user has global privileges or created the landmark
-        return $user->can_delete || ($landmark->user_id === $user->id);
+        return ($user->can_delete === 1) || ($landmark->user_id === $user->id);
     }
 
     public function deleteAny(User $user): bool
     {
         // Either user has global privileges or created the landmark
-        return $user->can_delete;
+        return ($user->can_delete === 1);
     }
 
     /**
