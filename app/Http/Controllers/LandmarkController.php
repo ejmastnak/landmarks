@@ -90,6 +90,7 @@ class LandmarkController extends Controller
         return inertia('Landmarks/Show', [
             'landmark' => $landmark->only(['id', 'name', 'city', 'comment', 'country', 'landmark_type']),
             'userCanEdit' => $user ? ($user->can('update', $landmark)) : false,
+            'userCanDelete' => $user ? ($user->can('delete', $landmark)) : false,
         ]);
     }
 
