@@ -10,6 +10,7 @@ import fuzzysort from 'fuzzysort'
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
 import { saveAs } from 'file-saver';
+import { router } from '@inertiajs/vue3'
 
 const props = defineProps({
   landmarks: Array,
@@ -84,6 +85,13 @@ function exportToJSON() {
       exportDisabled.value = false
     });
 }
+
+function showLandmark(id) {
+  router.get(route('landmarks.show', id), {
+    preserveScroll: true
+  })
+}
+
 </script>
 
 <script>
@@ -203,12 +211,22 @@ export default {
             class="bg-white border-b"
           >
             <th scope="row" class="px-5 py-4 font-semibold text-gray-900">
-              <Link
-                preserve-scroll
-                :href="route('landmarks.show', landmark.obj.id)"
-                class="hover:underline hover:text-blue-700 rounded p-1">
+
+              <!-- <Link -->
+              <!--   :href="route('landmarks.show', landmark.obj.id)" -->
+              <!--   class="hover:underline hover:text-blue-700 rounded p-1" -->
+              <!--   preserve-scroll -->
+              <!-- > -->
+              <!--   {{landmark.obj.name}} -->
+              <!-- </Link> -->
+
+              <button
+                @click="showLandmark(landmark.obj.id)"
+                class="hover:underline hover:text-blue-700 rounded p-1"
+              >
                 {{landmark.obj.name}}
-              </Link>
+              </button>
+
             </th>
             <td class="px-6 py-4">
               {{landmark.obj.landmark_type.name}}

@@ -21,6 +21,10 @@ const props = defineProps({
 
 const deleteDialog = ref(null)
 
+// function back() {
+//   window.history.back();
+// }
+
 </script>
 
 <script>
@@ -49,7 +53,20 @@ export default {
       </div>
 
       <div class="flex">
-        <PrimaryLinkButton class="mt-6" :href="route('landmarks.index')">
+
+        <!-- <PrimaryLinkButton -->
+        <!--   @click.prevent="back" -->
+        <!--   class="mt-6" -->
+        <!--   :href="route('landmarks.index')" -->
+        <!-- > -->
+        <!--   Back -->
+        <!-- </PrimaryLinkButton> -->
+
+        <PrimaryLinkButton
+          class="mt-6"
+          :href="route('landmarks.index')"
+          :preserveScroll="true"
+        >
           Back
         </PrimaryLinkButton>
 
