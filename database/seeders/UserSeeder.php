@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
 
         User::create([
         'name' => 'admin',
-        'email' => 'accounts@ejmastnak.com',
+        'email' => 'admin@ejmastnak.com',
         'password' => '$2y$10$QAE1Dj/HEsv99jGhzSyJv.6bmUSgSnOBzIHDsufrhnWsLZCUqMY2i',
         'can_create' => true,
         'can_edit' => true,
