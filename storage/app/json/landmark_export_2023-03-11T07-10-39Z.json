@@ -93,7 +93,7 @@
         "landmark_type": "Fortress",
         "city": "Fil'akovo",
         "country": "Slovakia",
-        "comment": "Said to be occupied by Ottoman troops"
+        "comment": "Used as an administrative center in addition to several other nearby castles. No traces of the Ottoman legacy remain.\nSource: https:\/\/spectator.sme.sk\/c\/20035850\/the-ottoman-history-of-slovakia.html"
     },
     {
         "id": 13,
@@ -177,7 +177,7 @@
     },
     {
         "id": 23,
-        "name": "Gazilar Graveyard with turbe",
+        "name": "Gazilar Graveyard with Turbe",
         "landmark_type": "Graveyard",
         "city": "Novi Pazar",
         "country": "Serbia",
@@ -496,7 +496,7 @@
         "comment": "Former Ottoman mosque in Klis fortress, converted to church in 1648 upon Venetian conquest of the city, mosque was likely built on even older Gothic church"
     },
     {
-        "id": 64,
+        "id": 63,
         "name": "Crkva Svijetog Ante Padovanskog (Džamija Halila Hodža)",
         "landmark_type": "Former Mosque",
         "city": "Drniš",
@@ -504,7 +504,7 @@
         "comment": "Former 16th century mosque, converted to a church in Baroque era"
     },
     {
-        "id": 65,
+        "id": 64,
         "name": "Drniška Minareta",
         "landmark_type": "Minaret",
         "city": "Drniš",
@@ -512,7 +512,7 @@
         "comment": null
     },
     {
-        "id": 66,
+        "id": 65,
         "name": "Kosturnica u Drnišu",
         "landmark_type": "Ossuary",
         "city": "Drniš",
@@ -520,7 +520,7 @@
         "comment": "Ottoman ossuary"
     },
     {
-        "id": 67,
+        "id": 66,
         "name": "Utvrđa Gradina Drniš",
         "landmark_type": "Tower",
         "city": "Drniš",
@@ -528,7 +528,7 @@
         "comment": null
     },
     {
-        "id": 68,
+        "id": 67,
         "name": "Crkva sv. Ivan Krstitelj",
         "landmark_type": "Clock",
         "city": "Šibenik",
@@ -536,7 +536,7 @@
         "comment": "Clock built into bell tower, brought from Drniš clock tower"
     },
     {
-        "id": 69,
+        "id": 68,
         "name": "Crkva svih Svetih",
         "landmark_type": "Former Mosque",
         "city": "Đakovo",
@@ -544,15 +544,15 @@
         "comment": "16th-century Ottoman mosque, converted to a church. Formerly Ibrahim-Pasha mosque, waqif was Mehmet Bey Memibegović."
     },
     {
-        "id": 70,
-        "name": "Tvrđava u Sisku",
+        "id": 69,
+        "name": "Sisak Fortress",
         "landmark_type": "Fortress",
         "city": "Sisaku",
         "country": "Croatia",
         "comment": "Site of victory against Ottomans in 16th century"
     },
     {
-        "id": 71,
+        "id": 70,
         "name": "Tvrđava u Vrliki",
         "landmark_type": "Fortress",
         "city": "Vrlika",
@@ -560,7 +560,7 @@
         "comment": "Captured by Ottomans in 1523, held for two centuries until Venetian conquest"
     },
     {
-        "id": 72,
+        "id": 71,
         "name": "Turska kula",
         "landmark_type": "Tower",
         "city": "Perušič",
@@ -568,7 +568,7 @@
         "comment": "Currently undergoing renovation. Nearby church of the Holy Cross formerly a mosque (?)"
     },
     {
-        "id": 73,
+        "id": 72,
         "name": "Turska Kula",
         "landmark_type": "Tower",
         "city": "Budak",
@@ -576,7 +576,7 @@
         "comment": "One of the nearby churches was a former mosque"
     },
     {
-        "id": 74,
+        "id": 73,
         "name": "Crkva Navještenja Blažene Djevice Marije u Vrgorcu",
         "landmark_type": "Former Mosque",
         "city": "Vrgorac",
@@ -584,7 +584,7 @@
         "comment": "Former mosque was incorporated into the church, unclear how much is still visible if at all"
     },
     {
-        "id": 75,
+        "id": 74,
         "name": "Crkva Gospoda od Anđela",
         "landmark_type": "Former Mosque",
         "city": "Imotski",
@@ -592,7 +592,7 @@
         "comment": "Thought to be a repurposed mosque"
     },
     {
-        "id": 76,
+        "id": 75,
         "name": "Česma u Otavicama",
         "landmark_type": "Fountain",
         "city": "Otavice",
@@ -600,7 +600,7 @@
         "comment": null
     },
     {
-        "id": 77,
+        "id": 76,
         "name": "Česma u Oriovcu",
         "landmark_type": "Fountain",
         "city": "Oriovac",
@@ -608,7 +608,7 @@
         "comment": null
     },
     {
-        "id": 78,
+        "id": 77,
         "name": "Turska Česma",
         "landmark_type": "Fountain",
         "city": "Slavonski Brod",
@@ -616,7 +616,7 @@
         "comment": "Somewhere on Rozinka ulica"
     },
     {
-        "id": 79,
+        "id": 78,
         "name": "Grand Mosque of Constanța",
         "landmark_type": "Mosque",
         "city": "Constanța",
@@ -624,7 +624,7 @@
         "comment": "Built on the site of the former Mahmudia Mosque (built for Mahmud II), completed 1913"
     },
     {
-        "id": 80,
+        "id": 79,
         "name": "Hünkar Mosque",
         "landmark_type": "Mosque",
         "city": "Constanța",
@@ -632,7 +632,7 @@
         "comment": null
     },
     {
-        "id": 81,
+        "id": 80,
         "name": "Azizyie Mosque",
         "landmark_type": "Mosque",
         "city": "Tulcea",
@@ -640,7 +640,7 @@
         "comment": null
     },
     {
-        "id": 82,
+        "id": 81,
         "name": "Church of the Holy Archangels Michael and Gabriel",
         "landmark_type": "Former Mosque",
         "city": "Brăila",
@@ -648,7 +648,7 @@
         "comment": null
     },
     {
-        "id": 83,
+        "id": 82,
         "name": "Esmahan Sultan Mosque",
         "landmark_type": "Mosque",
         "city": "Mangalia, Constanța County",
@@ -656,7 +656,7 @@
         "comment": "Oldest mosque in Romania"
     },
     {
-        "id": 84,
+        "id": 83,
         "name": "Muslim Graveyard",
         "landmark_type": "Graveyard",
         "city": "Mangalia, Constanța County",
@@ -664,7 +664,7 @@
         "comment": "Adjacent to Esmahan Sultan Mosque"
     },
     {
-        "id": 85,
+        "id": 84,
         "name": "Geamia Ali-Gazi Paşa",
         "landmark_type": "Mosque",
         "city": "Babadag, Tulcea County",
@@ -672,7 +672,7 @@
         "comment": null
     },
     {
-        "id": 86,
+        "id": 85,
         "name": "Abdul Mejid Mosque",
         "landmark_type": "Mosque",
         "city": "Medgidia",
@@ -680,7 +680,7 @@
         "comment": null
     },
     {
-        "id": 87,
+        "id": 86,
         "name": "Giurgiu Clocktower",
         "landmark_type": "Clocktower",
         "city": "Giurgiu",
@@ -688,7 +688,7 @@
         "comment": "Built in 1770-71, has since been reconstructed several times"
     },
     {
-        "id": 88,
+        "id": 87,
         "name": "Tulcea Art Museum",
         "landmark_type": "Museum",
         "city": "Tulcea",
@@ -696,7 +696,7 @@
         "comment": "Built between 1863-1865, example of modern Ottoman architecture"
     },
     {
-        "id": 89,
+        "id": 88,
         "name": "Fountain of Three Kings",
         "landmark_type": "Fountain",
         "city": "Klis",
@@ -704,7 +704,7 @@
         "comment": "At the foot of Klis Fortress, in the suburban area"
     },
     {
-        "id": 90,
+        "id": 89,
         "name": "Muslim Cemetary",
         "landmark_type": "Graveyard",
         "city": "Klis",
@@ -712,7 +712,7 @@
         "comment": "In suburban area of Klis fortress"
     },
     {
-        "id": 91,
+        "id": 90,
         "name": "Remains of han (inn)",
         "landmark_type": "Caravansarai",
         "city": "Klis",
@@ -720,7 +720,7 @@
         "comment": "Ruins are supposedly still visible in the suburban area of Klis Fortress"
     },
     {
-        "id": 93,
+        "id": 91,
         "name": "Erd Minaret",
         "landmark_type": "Minaret",
         "city": "Érd",
@@ -728,7 +728,7 @@
         "comment": "Near Budapest. Used to be part of a mosque, only descriptions of the mosque survive."
     },
     {
-        "id": 94,
+        "id": 92,
         "name": "Veli Bej Baths",
         "landmark_type": "Bathhouse",
         "city": "Budapest",
@@ -736,11 +736,75 @@
         "comment": null
     },
     {
-        "id": 95,
+        "id": 93,
         "name": "Rudas Baths",
         "landmark_type": "Bathhouse",
         "city": "Budapest",
         "country": "Hungary",
         "comment": null
+    },
+    {
+        "id": 94,
+        "name": "Tomb of Idris Baba",
+        "landmark_type": "Tomb",
+        "city": "Pécs",
+        "country": "Hungary",
+        "comment": null
+    },
+    {
+        "id": 95,
+        "name": "Memorial Stone in Vienna Gate",
+        "landmark_type": "Tombstone",
+        "city": "Budapest",
+        "country": "Hungary",
+        "comment": "In Vienna Gate, Buda Castle, stone inscribed “He was a heroic enemy, let him rest in peace” – a tribute to Vizir Abdurrahman Abdi Arnavut Pasha who died during the Battle of Buda.\nSource: https:\/\/budapestlocal.com\/budapest-through-centuries-ottoman-era\/"
+    },
+    {
+        "id": 96,
+        "name": "Buda Castle",
+        "landmark_type": "Fortress",
+        "city": "Budapest",
+        "country": "Hungary",
+        "comment": "Includes: Tower of Karakas Pasha\nBastion of Kasim pasha, today called Fehérvár rondella (White City Round Bastion) – demolished in 1867, rebuilt in 1950-52. Atop the bastion stands a horseman statue.\nSavanyú leves bástya (Bastion of Sour Soup)\nTower of Veli bey\nToprak Kulesi (Earth Bastion) aka Bastion of Esztergom\nTower of Sziavus pasha\nBastion of Murad pasha, now Anjoy Bástya (Anjou Bastion)\nSource: https:\/\/www.whereisyourtoothbrush.com\/ottoman-budapest-artifacts\/"
+    },
+    {
+        "id": 97,
+        "name": "Graves below Buda Castle",
+        "landmark_type": "Graveyard",
+        "city": "Budapest",
+        "country": "Hungary",
+        "comment": "In park near Buda Castle"
+    },
+    {
+        "id": 98,
+        "name": "Budapest Capuchin Church (Parish Church of St. Elizabeth)",
+        "landmark_type": "Former Mosque",
+        "city": "Budapest",
+        "country": "Hungary",
+        "comment": "Church from Middle Ages converted to mosque during Ottoman occupation and later converted back into a church. Parts of the former mosque, namely the door and windows, can be seen in the south wall of the church. \nSource: https:\/\/budapest-travel-guide.info\/budapest\/capuchin-church-budapest"
+    },
+    {
+        "id": 99,
+        "name": "Church of the Blessed Virgin Mary",
+        "landmark_type": "Former Mosque",
+        "city": "Budapest",
+        "country": "Hungary",
+        "comment": "Mihrab still remains\nSource: https:\/\/www.whereisyourtoothbrush.com\/ottoman-budapest-artifacts\/"
+    },
+    {
+        "id": 100,
+        "name": "18 Fortuna Street",
+        "landmark_type": "House",
+        "city": "Budapest",
+        "country": "Hungary",
+        "comment": "Ruins of house of commander of Janissary garrison\nhttps:\/\/www.whereisyourtoothbrush.com\/ottoman-budapest-artifacts\/"
+    },
+    {
+        "id": 101,
+        "name": "Cimitirul Musulman",
+        "landmark_type": "Graveyard",
+        "city": "Babadag",
+        "country": "Romania",
+        "comment": "In the outskirts of the town"
     }
 ]
