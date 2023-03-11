@@ -6,6 +6,7 @@ import TextAreaInput from '@/Components/TextAreaInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Combobox from '@/Components/Combobox.vue';
 import SecondaryLinkButton from "@/Components/SecondaryLinkButton.vue";
+import LandmarkSourceDialog from "./LandmarkSourceDialog.vue";
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -28,8 +29,14 @@ const form = useForm({
   city: props.landmark?.city,
   // Use country object that matches passed landmark's country
   country: props.landmark ? props.countries.find($c => $c.id === props.landmark.country.id) : {},
-  comment: props.landmark?.comment
+  comment: props.landmark?.comment,
+  landmarkSources: props.landmark ? props.landmark.landmark_sources.map(source => ({id: source.id, name: source.name})) : [],
 });
+
+function updateLandmarkSources(newLandmarkSources) {
+  // Only use sources with non-empty names
+  form.landmarkSources = newLandmarkSources.filter(source => source.name)
+}
 
 const submit = () => {
   if (props.action === "create") {
@@ -38,6 +45,7 @@ const submit = () => {
     form.put(route('landmarks.update', props.landmark.id), { preserveScroll: true});
   }
 };
+
 </script>
 
 <template>
@@ -95,8 +103,14 @@ const submit = () => {
       <InputError class="mt-2" :message="form.errors.comment" />
     </div>
 
-    <div class="mt-6 ml-auto">
-      <PrimaryButton class="ml-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+    <LandmarkSourceDialog 
+      :action="action"
+      :landmarkSources="form.landmarkSources" 
+      @update:landmarkSources="updateLandmarkSources"
+    />
+
+    <div class="mt-10 ml-auto">
+      <PrimaryButton class="" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
         <span v-if="action === 'update'">Update</span>
         <span v-else>Create</span>
       </PrimaryButton>
@@ -106,4 +120,4 @@ const submit = () => {
     </div>
 
   </form>
-</template>
+  </template>

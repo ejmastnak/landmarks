@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Landmark;
 use App\Models\Country;
 use App\Models\LandmarkType;
+use App\Models\LandmarkSource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,8 +16,6 @@ use Inertia\Inertia;
 class LandmarkController extends Controller
 {
 
-    private $foo = 'bar';
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +24,7 @@ class LandmarkController extends Controller
     public function index(Request $request)
     {
         $landmarks = Landmark::all(['id', 'name', 'landmark_type_id', 'city', 'country_id']);
-        $landmarks->load(['country:id,name', 'landmark_type:id,name']);
+        $landmarks->load(['country:id,name', 'landmark_type:id,name', 'landmark_sources:id,name,landmark_id']);
         $user = $request->user() ? $request->user() : null;
 
         return Inertia::render('Landmarks/Index', [
@@ -59,12 +58,12 @@ class LandmarkController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateCreateOrUpdateRequest($request);
+        $this->validateStoreOrUpdateRequest($request);
 
         $country_id = $this->getCountryIDForRequest($request);
         $landmark_type_id = $this->getLandmarkTypeIDForRequest($request);
 
-        Landmark::create([
+        $landmark = Landmark::create([
             'name' => $request->name,
             'landmark_type_id' => $landmark_type_id,
             'city' => $request->city,
@@ -73,7 +72,7 @@ class LandmarkController extends Controller
             // Use admin as default user for creating landmarks
             'user_id' => $request->user() ? $request->user()->id : User::where('id', 1)->first()->id,
         ]);
-
+        $this->updateLandmarkSources($request, $landmark);
         return Redirect::route('landmarks.index')->with('message', 'Success! Landmark created successfully.');
     }
 
@@ -85,7 +84,7 @@ class LandmarkController extends Controller
      */
     public function show(Request $request, Landmark $landmark)
     {
-        $landmark->load(['country:id,name', 'landmark_type:id,name']);
+        $landmark->load(['country:id,name', 'landmark_type:id,name', 'landmark_sources:id,name,landmark_id']);
         $user = $request->user() ? $request->user() : null;
         return inertia('Landmarks/Show', [
             'landmark' => $landmark->only(['id', 'name', 'city', 'comment', 'country', 'landmark_type']),
@@ -102,9 +101,9 @@ class LandmarkController extends Controller
      */
     public function edit(Landmark $landmark)
     {
-        $landmark->load(['country:id,name', 'landmark_type:id,name']);
+        $landmark->load(['country:id,name', 'landmark_type:id,name', 'landmark_sources:id,name,landmark_id']);
         return inertia('Landmarks/Edit', [
-            'landmark' => $landmark->only(['id', 'name', 'city', 'comment', 'country', 'landmark_type']),
+            'landmark' => $landmark->only(['id', 'name', 'city', 'comment', 'country', 'landmark_type', 'landmark_sources']),
             'countries' => Country::all(['id', 'name']),
             'landmarkTypes' => LandmarkType::all(['id', 'name'])
         ]);
@@ -119,7 +118,7 @@ class LandmarkController extends Controller
      */
     public function update(Request $request, Landmark $landmark)
     {
-        $this->validateCreateOrUpdateRequest($request);
+        $this->validateStoreOrUpdateRequest($request);
 
         $country_id = $this->getCountryIDForRequest($request);
         $landmark_type_id = $this->getLandmarkTypeIDForRequest($request);
@@ -131,6 +130,7 @@ class LandmarkController extends Controller
             'country_id' => $country_id,
             'comment' => $request->comment
         ]);
+        $this->updateLandmarkSources($request, $landmark);
         return Redirect::route('landmarks.index')->with('message', 'Success! Landmark updated successfully.');
     }
 
@@ -171,7 +171,7 @@ class LandmarkController extends Controller
      *      country.id: integer (-1 or matches ID of an existing Country)
      *      country.name: string (used only if country.id == -1)
      */
-    private function validateCreateOrUpdateRequest(Request $request)
+    private function validateStoreOrUpdateRequest(Request $request)
     {
         $request->validate([
             'name' => ['required', 'min:1', 'max:100'],
@@ -201,6 +201,10 @@ class LandmarkController extends Controller
                     }
                 },
             ],
+            'landmarkSources' => ['nullable', 'array', 'max:50'],
+            'landmarkSources.*' => ['required', 'array:id,name'],
+            'landmarkSources.*.id' => ['required', 'integer'],
+            'landmarkSources.*.name' => ['required', 'string', 'min:1', 'max:250'],
         ]);
     }
 
@@ -235,7 +239,8 @@ class LandmarkController extends Controller
      *  request containing a JSON array of Landmark IDs, looks up the landmarks
      *  by ID, and returns a JSON response with relevant landmark information.
      */
-    public function exportLandmarks(Request $request) {
+    public function exportLandmarks(Request $request)
+    {
         if ($request->landmarkIDs) {
             $landmarks = Landmark::findMany($request->landmarkIDs)->load('landmark_type:id,name', 'country:id,name');
             $landmarks = $landmarks->map(fn($l) => [
@@ -250,4 +255,47 @@ class LandmarkController extends Controller
         }
     }
 
+    /**
+     *  Updates a the LandmarkSources associated with a given Landmark when
+     *  updating or creating the Landmark.
+     */
+    private function updateLandmarkSources(Request $request, Landmark $landmark)
+    {
+        $dbLandmarkSources = $landmark->landmark_sources;
+        $dbIDs = array_map(function ($dbLandmarkSource) { return $dbLandmarkSource['id']; }, $dbLandmarkSources->toArray());
+        $requestLandmarkSources = $request->landmarkSources;
+        $requestIDs = array_map(function ($requestLandmarkSource) { return $requestLandmarkSource['id']; }, $requestLandmarkSources);
+
+        // Delete all LandmarkSources in `$dbLandmarkSources` and not in `$requestLandmarkSources`
+        foreach ($dbLandmarkSources as $dbLandmarkSource) {
+            if (!in_array($dbLandmarkSource['id'], $requestIDs)) {
+                $dbLandmarkSource->delete();
+            }
+        }
+
+        // Create a new LandmarkSource for any LandmarkSource in
+        // `requestLandmarkSources` but not in `$dbLandmarkSources`
+        foreach ($requestLandmarkSources as $requestLandmarkSource) {
+            if (!in_array($requestLandmarkSource['id'], $dbIDs)) {
+                LandmarkSource::create([
+                  'name' => $requestLandmarkSource['name'],
+                  'landmark_id' => $landmark->id,
+                ]);
+            }
+        }
+
+        // Update any LandmarkSources that appear in both `dbLandmarkSources`
+        // and `requestLandmarkSources` so as to reflect content of
+        // `requestLandmarkSources`.
+        foreach ($dbLandmarkSources as $dbLandmarkSource) {
+            // Is this dbLandmarkSource also in requestLandmarkSources?
+            $key = array_search($dbLandmarkSource['id'], $requestIDs);
+            if ($key !== false) {  // if a match was found
+                $dbLandmarkSource->update([
+                  'name' => $requestLandmarkSources[$key]['name'],
+                  'landmark_id' => $landmark->id,
+                ]);
+            }
+        }
+    }
 }

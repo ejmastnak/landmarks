@@ -104,6 +104,7 @@ export default {
 <template>
 
   <div class="mt-8">
+
     <Head title="Home" />
 
     <!-- Title and new landmark top row -->

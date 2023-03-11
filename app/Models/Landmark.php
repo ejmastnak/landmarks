@@ -20,4 +20,9 @@ class Landmark extends Model
     {
       return $this->belongsTo(Country::class, 'country_id', 'id');
     }
+
+    public function landmark_sources()
+    {
+        return $this->hasMany(LandmarkSource::class, 'landmark_id', 'id');
+    }
 }
