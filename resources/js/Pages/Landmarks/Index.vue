@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3'
-import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon, ArchiveBoxArrowDownIcon } from '@heroicons/vue/24/outline'
+import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon, ArchiveBoxArrowDownIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 import DeleteDialog from "@/Components/TheDeleteDialog.vue";
 import FilterSelect from "@/Components/TheFilterSelect.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
@@ -202,7 +202,7 @@ export default {
               Country
             </th>
             <!-- For trash icon -->
-            <th v-if="userCanDelete" scope="col" class="w-10 bg-blue-100" />
+            <th v-if="userCanDelete" scope="col" class="w-14 bg-blue-100" />
           </tr>
         </thead>
         <tbody>
@@ -238,14 +238,28 @@ export default {
             <td class="px-6 py-4">
               {{landmark.obj.country.name}}
             </td>
-            <td v-if="userCanDelete">
-              <button 
-                type="button" 
-                @click="deleteDialog.openToConfirmDeletion(landmark.obj.id)"
-                class="block mx-auto p-1 rounded-full hover:border hover:border-red-400 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-600"
-              >
-                <TrashIcon class="w-5 h-5 hover:text-red-700" />
-              </button>
+
+            <td v-if="userCanDelete || userCanEdit">
+              <div class="flex items-center px-1.5">
+
+                <Link
+                  v-if="userCanEdit"
+                  class="mx-auto"
+                  :href="route('landmarks.edit', landmark.obj.id)"
+                >
+                  <PencilSquareIcon class="w-5 h-5 hover:text-blue-600" />
+                </Link>
+
+                <button 
+                  v-if="userCanDelete"
+                  type="button" 
+                  @click="deleteDialog.openToConfirmDeletion(landmark.obj.id)"
+                  class="mx-auto"
+                >
+                  <TrashIcon class="w-5 h-5 hover:text-red-700" />
+                </button>
+
+              </div>
             </td>
           </tr>
         </tbody>
@@ -261,4 +275,4 @@ export default {
     <DeleteDialog ref="deleteDialog" @deletedALandmark="updateFilterOnDeletion" />
 
   </div>
-</template>
+  </template>
