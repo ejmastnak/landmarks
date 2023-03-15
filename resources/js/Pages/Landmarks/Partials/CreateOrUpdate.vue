@@ -110,7 +110,11 @@ const submit = () => {
     />
 
     <div class="mt-10 ml-auto">
-      <PrimaryButton class="" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+      <PrimaryButton
+        class=""
+        :class="{ 'opacity-25': form.processing }" 
+        :disabled="form.processing"
+      >
         <span v-if="action === 'update'">Update</span>
         <span v-else>Create</span>
       </PrimaryButton>

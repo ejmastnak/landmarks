@@ -87,7 +87,7 @@ class LandmarkController extends Controller
         $landmark->load(['country:id,name', 'landmark_type:id,name', 'landmark_sources:id,name,landmark_id']);
         $user = $request->user() ? $request->user() : null;
         return inertia('Landmarks/Show', [
-            'landmark' => $landmark->only(['id', 'name', 'city', 'comment', 'country', 'landmark_type']),
+            'landmark' => $landmark->only(['id', 'name', 'city', 'comment', 'country', 'landmark_type', 'landmark_sources']),
             'userCanEdit' => $user ? ($user->can('update', $landmark)) : false,
             'userCanDelete' => $user ? ($user->can('delete', $landmark)) : false,
         ]);
@@ -131,7 +131,7 @@ class LandmarkController extends Controller
             'comment' => $request->comment
         ]);
         $this->updateLandmarkSources($request, $landmark);
-        return Redirect::route('landmarks.index')->with('message', 'Success! Landmark updated successfully.');
+        return Redirect::route('landmarks.show', $landmark->id)->with('message', 'Success! Landmark updated successfully.');
     }
 
     /**

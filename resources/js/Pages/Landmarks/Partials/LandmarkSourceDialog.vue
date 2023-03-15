@@ -112,7 +112,7 @@ function refreshSources() {
             class="mt-4 mb-8 inline-flex items-center w-fit pl-2 pr-4 py-1 bg-white border border-gray-300 rounded-lg text-gray-500 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150"
           >
             <PlusCircleIcon class="w-6 h-6"/>
-            <span class="ml-2 text-sm">Add source</span>
+            <span class="ml-2 text-sm">New source</span>
           </button>
 
           <div class="flex mt-auto">

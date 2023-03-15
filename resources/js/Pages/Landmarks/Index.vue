@@ -211,7 +211,7 @@ export default {
             v-show="shouldDisplay(landmark.obj)"
             class="bg-white border-b"
           >
-            <th scope="row" class="px-5 py-4 font-semibold text-gray-900">
+            <td scope="row" class="px-5 py-4 font-semibold text-gray-900">
 
               <!-- <Link -->
               <!--   :href="route('landmarks.show', landmark.obj.id)" -->
@@ -228,7 +228,7 @@ export default {
                 {{landmark.obj.name}}
               </button>
 
-            </th>
+            </td>
             <td class="px-6 py-4">
               {{landmark.obj.landmark_type.name}}
             </td>

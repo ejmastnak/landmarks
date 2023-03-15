@@ -45,25 +45,25 @@ export default {
         {{landmark.landmark_type.name}} in {{landmark.city}}, {{landmark.country.name}}
       </p>
 
-      <div v-if="landmark.comment" class="mt-6 mb-2" >
+      <div v-if="landmark.comment" class="mt-4 mb-6" >
         <p class="font-semibold">Notes</p>
-        <p class="text-gray-800 mt-1">
+        <p class="text-gray-800 mt-0.5">
           {{landmark.comment}}
         </p>
       </div>
 
-      <div class="flex">
+      <div v-if="landmark.landmark_sources.length" class="mt-6 text-sm text-gray-700">
+        <p class="">Sources</p>
+        <ul class="text-gray-600">
+          <li v-for="source in landmark.landmark_sources" key="source.id" >
+            {{source.name}}
+          </li>
+        </ul>
+      </div>
 
-        <!-- <PrimaryLinkButton -->
-        <!--   @click.prevent="back" -->
-        <!--   class="mt-6" -->
-        <!--   :href="route('landmarks.index')" -->
-        <!-- > -->
-        <!--   Back -->
-        <!-- </PrimaryLinkButton> -->
+      <div class="flex mt-6">
 
         <PrimaryLinkButton
-          class="mt-6"
           :href="route('landmarks.index')"
           :preserveScroll="true"
         >
@@ -72,7 +72,7 @@ export default {
 
         <SecondaryLinkButton
           v-if="userCanEdit"
-          class="mt-6 ml-auto"
+          class="ml-auto"
           :href="route('landmarks.edit', landmark.id)"
         >
           Edit
@@ -80,7 +80,7 @@ export default {
 
         <SecondaryButton
           v-if="userCanDelete"
-          class="mt-6 ml-2"
+          class="ml-2"
           @click="deleteDialog.openToConfirmDeletion(landmark.id)"
         >
           Delete
