@@ -10,7 +10,7 @@ import fuzzysort from 'fuzzysort'
 import throttle from "lodash/throttle";
 import debounce from "lodash/debounce";
 import { saveAs } from 'file-saver';
-import { router } from '@inertiajs/vue3'
+import {onMounted, onBeforeUnmount} from 'vue'
 
 const props = defineProps({
   landmarks: Array,
@@ -30,9 +30,26 @@ const props = defineProps({
   },
 })
 
-const allLandmarkType = props.filterLandmarkTypes.find($l => $l.name === 'All');
+// Preserve scroll
+onMounted(() => {
+  const scrollX = sessionStorage.getItem('landmarksIndexScrollX');
+  const scrollY = sessionStorage.getItem('landmarksIndexScrollY');
+  if (scrollX && scrollY) {
+    setTimeout(() => {
+      window.scrollTo(scrollX, scrollY);
+    })
+  }
+})
+
+// Preserve scroll
+onBeforeUnmount(() => {
+  sessionStorage.setItem('landmarksIndexScrollX', window.scrollX);
+  sessionStorage.setItem('landmarksIndexScrollY', window.scrollY);
+})
+
+const allLandmarkTypes = props.filterLandmarkTypes.find($l => $l.name === 'All');
 const allCountry = props.filterCountries.find($c => $c.name === 'All');
-const selectedLandmarkType = ref(allLandmarkType)
+const selectedLandmarkType = ref(allLandmarkTypes)
 const selectedCountry = ref(allCountry)
 
 // Convert to fuzzysort format
@@ -54,7 +71,7 @@ watch(search, throttle(function (value) {
 // Decides if a landmark row should display in main landmarks table
 // based on value of select input elements for landmark type and country.
 function shouldDisplay(landmark) {
-  return ((selectedLandmarkType.value.id === allLandmarkType.id) || (landmark.landmark_type_id === selectedLandmarkType.value.id)) && ((selectedCountry.value.id === allCountry.id) || (landmark.country_id === selectedCountry.value.id))
+  return ((selectedLandmarkType.value.id === allLandmarkTypes.id) || (landmark.landmark_type_id === selectedLandmarkType.value.id)) && ((selectedCountry.value.id === allCountry.id) || (landmark.country_id === selectedCountry.value.id))
 }
 
 // Used conditionally display a "No results found" message.
@@ -84,12 +101,6 @@ function exportToJSON() {
       saveAs(response.data, "landmark_export_" + new Date().toISOString().slice(0,-5).replaceAll(":", "-") + "Z.json" );
       exportDisabled.value = false
     });
-}
-
-function showLandmark(id) {
-  router.get(route('landmarks.show', id), {
-    preserveScroll: true
-  })
 }
 
 </script>
@@ -213,20 +224,12 @@ export default {
           >
             <td scope="row" class="px-5 py-4 font-semibold text-gray-900">
 
-              <!-- <Link -->
-              <!--   :href="route('landmarks.show', landmark.obj.id)" -->
-              <!--   class="hover:underline hover:text-blue-700 rounded p-1" -->
-              <!--   preserve-scroll -->
-              <!-- > -->
-              <!--   {{landmark.obj.name}} -->
-              <!-- </Link> -->
-
-              <button
-                @click="showLandmark(landmark.obj.id)"
+              <Link
+                :href="route('landmarks.show', landmark.obj.id)"
                 class="hover:underline hover:text-blue-700 rounded p-1"
               >
                 {{landmark.obj.name}}
-              </button>
+              </Link>
 
             </td>
             <td class="px-6 py-4">

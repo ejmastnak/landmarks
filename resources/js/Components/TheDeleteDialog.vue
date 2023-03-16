@@ -41,7 +41,6 @@ function closeAndDelete() {
   if (idToDelete >= 0) {
     const id = idToDelete;  // save deleted id before overwriting with -1
     router.delete(route('landmarks.destroy', idToDelete), {
-      preserveScroll: true,
       onSuccess: () => {
         emit('deletedALandmark', id)
       }

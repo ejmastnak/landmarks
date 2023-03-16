@@ -63,10 +63,7 @@ export default {
 
       <div class="flex mt-6">
 
-        <PrimaryLinkButton
-          :href="route('landmarks.index')"
-          :preserveScroll="true"
-        >
+        <PrimaryLinkButton :href="route('landmarks.index')" >
           Back
         </PrimaryLinkButton>
 
