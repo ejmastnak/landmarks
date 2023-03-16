@@ -73,6 +73,7 @@ class LandmarkController extends Controller
             'user_id' => $request->user() ? $request->user()->id : User::where('id', 1)->first()->id,
         ]);
         $this->updateLandmarkSources($request, $landmark);
+        activity()->performedOn($landmark)->log('Landmark created');
         return Redirect::route('landmarks.index')->with('message', 'Success! Landmark created successfully.');
     }
 
@@ -131,6 +132,7 @@ class LandmarkController extends Controller
             'comment' => $request->comment
         ]);
         $this->updateLandmarkSources($request, $landmark);
+        activity()->performedOn($landmark)->log('Landmark updated');
         return Redirect::route('landmarks.show', $landmark->id)->with('message', 'Success! Landmark updated successfully.');
     }
 
@@ -155,6 +157,7 @@ class LandmarkController extends Controller
                 LandmarkType::find($landmark_type_id)->delete();
             }
         }
+        activity()->performedOn($landmark)->log('Landmark deleted');
         return Redirect::route('landmarks.index')->with('message', 'Success! Landmark deleted successfully.');
     }
 
