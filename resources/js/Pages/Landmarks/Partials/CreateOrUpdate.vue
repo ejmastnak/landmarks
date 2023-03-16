@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import TextAreaInput from '@/Components/TextAreaInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import Combobox from '@/Components/Combobox.vue';
 import SecondaryLinkButton from "@/Components/SecondaryLinkButton.vue";
 import LandmarkSourceDialog from "./LandmarkSourceDialog.vue";
@@ -45,6 +46,10 @@ const submit = () => {
     form.put(route('landmarks.update', props.landmark.id), { preserveScroll: true});
   }
 };
+
+function back() {
+  history.back();
+}
 
 </script>
 
@@ -118,9 +123,9 @@ const submit = () => {
         <span v-if="action === 'update'">Update</span>
         <span v-else>Create</span>
       </PrimaryButton>
-      <SecondaryLinkButton class="ml-4" :href="route('landmarks.index')">
+      <SecondaryButton @click.prevent="back" class="ml-4" :href="route('landmarks.index')">
         Cancel
-      </SecondaryLinkButton>
+      </SecondaryButton>
     </div>
 
   </form>

@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/vue3'
 import CreateOrUpdate from './Partials/CreateOrUpdate.vue'
 import PrimaryLinkButton from '@/Components/PrimaryLinkButton.vue'
 import SecondaryLinkButton from '@/Components/SecondaryLinkButton.vue'
+import PrimaryButton from '@/Components/PrimaryButton.vue'
 import SecondaryButton from '@/Components/SecondaryButton.vue'
 import DeleteDialog from "@/Components/TheDeleteDialog.vue";
 import { ref } from 'vue'
@@ -21,9 +22,9 @@ const props = defineProps({
 
 const deleteDialog = ref(null)
 
-// function back() {
-//   window.history.back();
-// }
+function back() {
+  history.back();
+}
 
 </script>
 
@@ -63,9 +64,9 @@ export default {
 
       <div class="flex mt-6">
 
-        <PrimaryLinkButton :href="route('landmarks.index')" >
+        <PrimaryButton @click.prevent="back" >
           Back
-        </PrimaryLinkButton>
+        </PrimaryButton>
 
         <SecondaryLinkButton
           v-if="userCanEdit"
