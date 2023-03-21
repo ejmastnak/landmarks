@@ -3,13 +3,13 @@
     {
       "name": "Start PHP server",
       "cmd": "php artisan serve",
-      "tags": ["project"],
+      "tags": ["serve"],
       "count": 1
     },
     {
       "name": "Run",
       "cmd": "npm run dev",
-      "tags": ["project"],
+      "tags": ["serve"],
       "count": 2
     },
     {
