@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('landmarks/{landmark}', [LandmarkController::class, 'destroy'])->name('landmarks.destroy');
 });
 
-// The route should be defined last amount the landmarks routes, since the
+// The route should be defined last among the landmarks routes, since the
 // catch-all parameter `landmarks/{landmarks}` would otherwise "capture" e.g.
 // landmarks/create and landmarks/export
 Route::get('landmarks/{landmark}', [LandmarkController::class, 'show'])->name('landmarks.show');
