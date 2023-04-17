@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('landmarks', [LandmarkController::class, 'store'])->name('landmarks.store')->can('create', Landmark::class);
     Route::get('landmarks/{landmark}/edit', [LandmarkController::class, 'edit'])->name('landmarks.edit')->can('update', 'landmark');
     Route::put('landmarks/{landmark}', [LandmarkController::class, 'update'])->name('landmarks.update')->can('update', 'landmark');
-    Route::delete('landmarks/{landmark}', [LandmarkController::class, 'destroy'])->name('landmarks.destroy');
+    Route::delete('landmarks/{landmark}', [LandmarkController::class, 'destroy'])->name('landmarks.destroy')->can('delete', 'landmark');
 });
 
 // The route should be defined last among the landmarks routes, since the
