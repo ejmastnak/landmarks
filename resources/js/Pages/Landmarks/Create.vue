@@ -19,7 +19,7 @@ export default {
   <div class="mt-16 max-w-lg mx-auto">
     <Head title="Create landmark" />
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">Create landmark</h1>
-    <CreateOrUpdate 
+    <CreateOrUpdate
       action="create"
       :countries="countries"
       :landmarkTypes="landmarkTypes"

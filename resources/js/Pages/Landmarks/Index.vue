@@ -95,7 +95,7 @@ function exportToJSON() {
     data: {landmarkIDs: filteredLandmarks.value.filter(l => shouldDisplay(l.obj)).map(l => l.obj.id)},
     headers: {
       'Content-Type': 'application/json',
-    }, 
+    },
     responseType: 'blob',
   }).then((response) => {
       saveAs(response.data, "landmark_export_" + new Date().toISOString().slice(0,-5).replaceAll(":", "-") + "Z.json" );
@@ -125,13 +125,13 @@ export default {
         <h1 class="font-semibold text-2xl text-gray-900">Ottoman landmarks in Europe</h1>
         <p class="mt-2 w-11/12 4 sm:w-2/3 text-gray-500">
           This is a list of Ottoman landmarks in Europe.
-          You can use this page to view, edit, delete, or add new landmarks. 
+          You can use this page to view, edit, delete, or add new landmarks.
         </p>
       </div>
 
       <div class="flex flex-col ml-auto">
         <!-- New landmark button -->
-        <PrimaryLinkButton 
+        <PrimaryLinkButton
           :href="route('landmarks.create')"
           class="flex items-center py-2 sm:py-2.5 mt-1 normal-case w-full"
           :class="{'bg-blue-200': !userCanCreate}"
@@ -141,7 +141,7 @@ export default {
         </PrimaryLinkButton>
 
         <!-- Export as JSON button -->
-        <SecondaryButton 
+        <SecondaryButton
           class="flex items-center mt-2 normal-case sm:w-max"
           :disabled="exportDisabled"
           @click="exportToJSON"
@@ -168,10 +168,10 @@ export default {
               <MagnifyingGlassIcon class="w-5 h-5 text-gray-500" />
             </div>
 
-            <input 
+            <input
               type="text"
               id="table-search"
-              class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 sm:w-64 md:w-80 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" 
+              class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 sm:w-64 md:w-80 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               v-model="search"
             />
           </div>
@@ -217,7 +217,7 @@ export default {
           </tr>
         </thead>
         <tbody>
-          <tr 
+          <tr
             v-for="landmark in filteredLandmarks" :key="landmark.obj.id"
             v-show="shouldDisplay(landmark.obj)"
             class="bg-white border-b"
@@ -253,9 +253,9 @@ export default {
                   <PencilSquareIcon class="w-5 h-5 hover:text-blue-600" />
                 </Link>
 
-                <button 
+                <button
                   v-if="userCanDelete"
-                  type="button" 
+                  type="button"
                   @click="deleteDialog.openToConfirmDeletion(landmark.obj.id)"
                   class="mx-auto"
                 >
@@ -264,6 +264,7 @@ export default {
 
               </div>
             </td>
+
           </tr>
         </tbody>
       </table>

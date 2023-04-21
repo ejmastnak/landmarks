@@ -108,16 +108,16 @@ function back() {
       <InputError class="mt-2" :message="form.errors.comment" />
     </div>
 
-    <LandmarkSourceDialog 
+    <LandmarkSourceDialog
       :action="action"
-      :landmarkSources="form.landmarkSources" 
+      :landmarkSources="form.landmarkSources"
       @update:landmarkSources="updateLandmarkSources"
     />
 
     <div class="mt-10 ml-auto">
       <PrimaryButton
         class=""
-        :class="{ 'opacity-25': form.processing }" 
+        :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
       >
         <span v-if="action === 'update'">Update</span>
