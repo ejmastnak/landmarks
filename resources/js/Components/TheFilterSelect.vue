@@ -12,7 +12,7 @@ import {
 const props = defineProps({
   options: Array,
   labelText: String,
-  modelValue: Object,
+  modelValue: Array,
   width: {  // TailwindCSS width class for button and options
     type: String,
     default: 'w-36'
@@ -23,25 +23,20 @@ const emit = defineEmits([
   'update:modelValue',
 ])
 
-const selectedValue = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(option) {
-    emit('update:modelValue', option)
-  }
-})
-
 </script>
 
 <template>
-  <Listbox v-model="selectedValue">
+  <Listbox
+    :modelValue="modelValue"
+    @update:modelValue="value => emit('update:modelValue', value)"
+    multiple
+  >
     <ListboxLabel class="ml-1 text-sm text-gray-500">
       {{labelText}}
     </ListboxLabel>
     <ListboxButton :class="width" class="flex text-left bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 px-4 py-2">
-      <span :class="{'font-bold': selectedValue.name !== 'All'}">
-        {{ modelValue.name }}
+      <span class="mr-2">
+        {{ modelValue.length === 0 ? "All" : options[modelValue[0] - 1].name }}{{ modelValue.length > 1 ? "..." : ""}}
       </span>
       <ChevronDownIcon class="ml-auto w-5 h-5 text-gray-500" />
     </ListboxButton>
@@ -49,7 +44,7 @@ const selectedValue = computed({
       <ListboxOption
         v-for="option in options"
         :key="option.id"
-        :value="option"
+        :value="option.id"
         class="text-left cursor-pointer hover:bg-gray-100"
         v-slot="{ active, selected }"
       >

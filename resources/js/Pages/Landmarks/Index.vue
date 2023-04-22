@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3'
-import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon, ArchiveBoxArrowDownIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
+import { TrashIcon, PlusCircleIcon, MagnifyingGlassIcon, XMarkIcon, ArchiveBoxArrowDownIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 import DeleteDialog from "@/Components/TheDeleteDialog.vue";
 import FilterSelect from "@/Components/TheFilterSelect.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
@@ -14,8 +14,8 @@ import {onMounted, onBeforeUnmount} from 'vue'
 
 const props = defineProps({
   landmarks: Array,
-  filterCountries: Array,
-  filterLandmarkTypes: Array,
+  countries: Array,
+  landmarkTypes: Array,
   userCanDelete: {
     type: Boolean,
     default: false
@@ -47,10 +47,17 @@ onBeforeUnmount(() => {
   sessionStorage.setItem('landmarksIndexScrollY', window.scrollY);
 })
 
-const allLandmarkTypes = props.filterLandmarkTypes.find($l => $l.name === 'All');
-const allCountry = props.filterCountries.find($c => $c.name === 'All');
-const selectedLandmarkType = ref(allLandmarkTypes)
-const selectedCountry = ref(allCountry)
+const selectedLandmarkTypes = ref([])
+const selectedCountries = ref([])
+
+function resetFilters() {
+  search.value = ""
+  selectedCountries.value = []
+  selectedLandmarkTypes.value = []
+  landmarkFuzzySearchInput.value.focus()
+}
+
+const landmarkFuzzySearchInput = ref(null)
 
 // Convert to fuzzysort format
 const filteredLandmarks = ref(props.landmarks.map((landmark) => ({
@@ -71,10 +78,10 @@ watch(search, throttle(function (value) {
 // Decides if a landmark row should display in main landmarks table
 // based on value of select input elements for landmark type and country.
 function shouldDisplay(landmark) {
-  return ((selectedLandmarkType.value.id === allLandmarkTypes.id) || (landmark.landmark_type_id === selectedLandmarkType.value.id)) && ((selectedCountry.value.id === allCountry.id) || (landmark.country_id === selectedCountry.value.id))
+  return ((selectedLandmarkTypes.value.length === 0) || (selectedLandmarkTypes.value.includes(landmark.landmark_type_id))) && ((selectedCountries.value.length === 0) || (selectedCountries.value.includes(landmark.country_id)))
 }
 
-// Used conditionally display a "No results found" message.
+// Used to conditionally display a "No results found" message.
 const numDisplayedResults = computed(() => {
   return filteredLandmarks.value.filter(result => shouldDisplay(result.obj)).length
 })
@@ -157,7 +164,7 @@ export default {
     <div class="mt-8 min-h-screen relative overflow-x-auto border border-gray-100 shadow-md sm:rounded-lg">
 
       <!-- Search/filter components -->
-      <div class="flex flex-col sm:flex-row items-start px-2 py-4 bg-white">
+      <div class="flex flex-col sm:flex-row items-start sm:items-end px-2 py-4 bg-white">
         <!-- Input for search -->
         <div class="sm:mr-3">
           <label for="table-search" class="ml-1 text-sm text-gray-500">
@@ -171,6 +178,7 @@ export default {
             <input
               type="text"
               id="table-search"
+              ref="landmarkFuzzySearchInput"
               class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 sm:w-64 md:w-80 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               v-model="search"
             />
@@ -180,9 +188,10 @@ export default {
         <!-- Select menu for type -->
         <div class="sm:ml-auto">
           <FilterSelect
-            :options="filterLandmarkTypes"
+            :options="landmarkTypes"
             labelText="Filter by type"
-            v-model="selectedLandmarkType"
+            :modelValue="selectedLandmarkTypes"
+            @update:modelValue="newValue => selectedLandmarkTypes = newValue"
             width="w-44"
           />
         </div>
@@ -190,11 +199,27 @@ export default {
         <!-- Select menu for country -->
         <div class="sm:ml-3">
           <FilterSelect
-            :options="filterCountries"
+            :options="countries"
             labelText="Filter by country"
-            v-model="selectedCountry"
+            v-model="selectedCountries"
           />
         </div>
+
+        <div class="flex items-center sm:ml-2 mt-2 sm:mt-0">
+          <label for="clear-landmark-filters" class="sr-only">
+            Clear filters
+          </label>
+          <SecondaryButton
+            type="button"
+            id="clear-landmark-filters"
+            class="normal-case font-normal !tracking-normal !text-sm !px-2 h-fit"
+            @click="resetFilters"
+          >
+            <XMarkIcon class="w-5 h-5 text-gray-600" />
+            <span class="sm:hidden ml-0.5 text-gray-600">Clear filters</span>
+          </SecondaryButton>
+        </div>
+
       </div>
 
       <table class="sm:table-fixed w-full text-sm sm:text-base text-left text-gray-500">
@@ -250,7 +275,7 @@ export default {
                   class="mx-auto"
                   :href="route('landmarks.edit', landmark.obj.id)"
                 >
-                  <PencilSquareIcon class="w-5 h-5 hover:text-blue-600" />
+                <PencilSquareIcon class="w-5 h-5 hover:text-blue-600" />
                 </Link>
 
                 <button
@@ -279,4 +304,4 @@ export default {
     <DeleteDialog ref="deleteDialog" @deletedALandmark="updateFilterOnDeletion" />
 
   </div>
-  </template>
+</template>

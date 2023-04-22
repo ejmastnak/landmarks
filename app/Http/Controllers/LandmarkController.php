@@ -29,8 +29,8 @@ class LandmarkController extends Controller
 
         return Inertia::render('Landmarks/Index', [
             'landmarks' => $landmarks,
-            'filterCountries' => Country::countriesForFiltering(),
-            'filterLandmarkTypes' => LandmarkType::landmarkTypesForFiltering(),
+            'countries' => Country::all(),
+            'landmarkTypes' => LandmarkType::all(),
             'userCanEdit' => $user ? ($user->can('updateAny', Landmark::class)) : false,
             'userCanDelete' => $user ? ($user->can('deleteAny', Landmark::class)) : false,
             'userCanCreate' => $user ? ($user->can('create', Landmark::class)) : false,
