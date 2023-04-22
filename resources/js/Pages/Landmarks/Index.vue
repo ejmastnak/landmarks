@@ -164,9 +164,10 @@ export default {
     <div class="mt-8 min-h-screen relative overflow-x-auto border border-gray-100 shadow-md sm:rounded-lg">
 
       <!-- Search/filter components -->
-      <div class="flex flex-col sm:flex-row items-start sm:items-end px-2 py-4 bg-white">
+      <div class="flex flex-col sm:flex-row items-start sm:items-end sm:flex-wrap px-2 py-4 bg-white gap-y-2 -mt-1">
+
         <!-- Input for search -->
-        <div class="sm:mr-3">
+        <div class="mr-auto w-full xs:w-fit">
           <label for="table-search" class="ml-1 text-sm text-gray-500">
             Search by name or city
           </label>
@@ -179,33 +180,36 @@ export default {
               type="text"
               id="table-search"
               ref="landmarkFuzzySearchInput"
-              class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 sm:w-64 md:w-80 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+              class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full xs:w-96 sm:w-90 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
               v-model="search"
             />
           </div>
         </div>
 
-        <!-- Select menu for type -->
-        <div class="sm:ml-auto">
-          <FilterSelect
-            :options="landmarkTypes"
-            labelText="Filter by type"
-            :modelValue="selectedLandmarkTypes"
-            @update:modelValue="newValue => selectedLandmarkTypes = newValue"
-            width="w-44"
-          />
+        <div class="flex mt-1 sm:mt-0">
+          <!-- Select menu for landmark type -->
+          <div class="mr-3">
+            <FilterSelect
+              :options="landmarkTypes"
+              labelText="Filter by type"
+              :modelValue="selectedLandmarkTypes"
+              @update:modelValue="newValue => selectedLandmarkTypes = newValue"
+              width="w-44"
+            />
+          </div>
+
+          <!-- Select menu for country -->
+          <div class="mr-3">
+            <FilterSelect
+              :options="countries"
+              labelText="Filter by country"
+              v-model="selectedCountries"
+            />
+          </div>
         </div>
 
-        <!-- Select menu for country -->
-        <div class="sm:ml-3">
-          <FilterSelect
-            :options="countries"
-            labelText="Filter by country"
-            v-model="selectedCountries"
-          />
-        </div>
-
-        <div class="flex items-center sm:ml-2 mt-2 sm:mt-0">
+        <!-- Clear filters buttom -->
+        <div class="flex items-center mt-3 sm:mt-0">
           <label for="clear-landmark-filters" class="sr-only">
             Clear filters
           </label>
@@ -216,8 +220,9 @@ export default {
             @click="resetFilters"
           >
             <XMarkIcon class="w-5 h-5 text-gray-600" />
-            <span class="sm:hidden ml-0.5 text-gray-600">Clear filters</span>
+            <span class="lg:hidden ml-0.5 text-gray-600">Clear filters</span>
           </SecondaryButton>
+
         </div>
 
       </div>
