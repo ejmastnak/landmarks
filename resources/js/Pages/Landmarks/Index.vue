@@ -30,28 +30,41 @@ const props = defineProps({
   },
 })
 
-// Preserve scroll
+// Preserve scroll and filters
 onMounted(() => {
-  const scrollX = sessionStorage.getItem('landmarksIndexScrollX');
-  const scrollY = sessionStorage.getItem('landmarksIndexScrollY');
+  const scrollX = sessionStorage.getItem('landmarkIndexScrollX');
+  const scrollY = sessionStorage.getItem('landmarkIndexScrollY');
   if (scrollX && scrollY) {
     setTimeout(() => {
       window.scrollTo(scrollX, scrollY);
     })
   }
+
+  const storedSearchQuery = sessionStorage.getItem('landmarkSearchQuery');
+  if (storedSearchQuery) {
+    searchQuery.value = storedSearchQuery
+    filteredLandmarks.value = fuzzysort.go(storedSearchQuery.trim(), props.landmarks, fuzzysortOptions)
+  }
+
 })
 
-// Preserve scroll
+// Preserve scroll and search queries
 onBeforeUnmount(() => {
-  sessionStorage.setItem('landmarksIndexScrollX', window.scrollX);
-  sessionStorage.setItem('landmarksIndexScrollY', window.scrollY);
+  sessionStorage.setItem('landmarkIndexScrollX', window.scrollX);
+  sessionStorage.setItem('landmarkIndexScrollY', window.scrollY);
+  sessionStorage.setItem('landmarkSearchQuery', searchQuery.value);
 })
+
+// // Preserve search query on manual page reload
+// window.onbeforeunload = function() {
+//   sessionStorage.setItem('landmarkSearchQuery', searchQuery.value);
+// }
 
 const selectedLandmarkTypes = ref([])
 const selectedCountries = ref([])
 
 function resetFilters() {
-  search.value = ""
+  searchQuery.value = ""
   selectedCountries.value = []
   selectedLandmarkTypes.value = []
   landmarkFuzzySearchInput.value.focus()
@@ -64,14 +77,14 @@ const filteredLandmarks = ref(props.landmarks.map((landmark) => ({
   obj: landmark
 })))
 
-const search = ref("")
+const searchQuery = ref("")
 const fuzzysortOptions = {
   keys: ['name', 'city'],
   all: true,
   limit: 150,
   threshold: -100
 }
-watch(search, throttle(function (value) {
+watch(searchQuery, throttle(function (value) {
   filteredLandmarks.value = fuzzysort.go(value.trim(), props.landmarks, fuzzysortOptions)
 }, 400))
 
@@ -89,7 +102,7 @@ const numDisplayedResults = computed(() => {
 // Updates filtered landmarks after landmarks was deleted on server.
 // This is used to refresh landmark table to reflect a deleted landmark.
 function updateFilterOnDeletion(id) {
-  filteredLandmarks.value = fuzzysort.go(search.value.trim(), props.landmarks, fuzzysortOptions)
+  filteredLandmarks.value = fuzzysort.go(searchQuery.value.trim(), props.landmarks, fuzzysortOptions)
 }
 const deleteDialog = ref(null)
 
@@ -181,7 +194,7 @@ export default {
               id="table-search"
               ref="landmarkFuzzySearchInput"
               class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-full xs:w-96 sm:w-90 lg:w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-              v-model="search"
+              v-model="searchQuery"
             />
           </div>
         </div>
