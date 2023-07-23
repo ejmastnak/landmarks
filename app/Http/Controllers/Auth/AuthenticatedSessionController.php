@@ -26,6 +26,20 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
+     * Display the login view with a custom message.
+     *
+     * @return \Inertia\Response
+     */
+    public function createWithMessage()
+    {
+        return Inertia::render('Auth/Login', [
+            'canResetPassword' => Route::has('password.request'),
+            'status' => session('status'),
+            'message' => 'You must log in to access this page.'
+        ]);
+    }
+
+    /**
      * Handle an incoming authentication request.
      *
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
