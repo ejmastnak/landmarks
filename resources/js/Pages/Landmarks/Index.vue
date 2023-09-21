@@ -240,8 +240,6 @@ export default {
 
       </div>
 
-      Hello, world!
-
       <table class="sm:table-fixed w-full text-sm sm:text-base text-left text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
