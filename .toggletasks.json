@@ -14,7 +14,7 @@
     },
     {
       "name": "Open browser",
-      "cmd": "xdg-open http://127.0.0.1:8000",
+      "cmd": "xdg-open http://127.0.0.1:8000 && sleep 1",
       "tags": ["view"],
       "count": 3
     }
