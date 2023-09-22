@@ -136,7 +136,7 @@ export default {
 
   <div class="mt-8">
 
-    <Head title="Home" />
+    <Head title="Hello" />
 
     <!-- Title and new landmark top row -->
     <div class="flex">
