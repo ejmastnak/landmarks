@@ -30,36 +30,6 @@ const props = defineProps({
   },
 })
 
-// Preserve scroll and filters
-onMounted(() => {
-  const scrollX = sessionStorage.getItem('landmarkIndexScrollX');
-  const scrollY = sessionStorage.getItem('landmarkIndexScrollY');
-  if (scrollX && scrollY) {
-    setTimeout(() => {
-      window.scrollTo(scrollX, scrollY);
-    })
-  }
-
-  const storedSearchQuery = sessionStorage.getItem('landmarkSearchQuery');
-  if (storedSearchQuery) {
-    searchQuery.value = storedSearchQuery
-    filteredLandmarks.value = fuzzysort.go(storedSearchQuery.trim(), props.landmarks, fuzzysortOptions)
-  }
-
-})
-
-// Preserve scroll and search queries
-onBeforeUnmount(() => {
-  sessionStorage.setItem('landmarkIndexScrollX', window.scrollX);
-  sessionStorage.setItem('landmarkIndexScrollY', window.scrollY);
-  sessionStorage.setItem('landmarkSearchQuery', searchQuery.value);
-})
-
-// // Preserve search query on manual page reload
-// window.onbeforeunload = function() {
-//   sessionStorage.setItem('landmarkSearchQuery', searchQuery.value);
-// }
-
 const selectedLandmarkTypes = ref([])
 const selectedCountries = ref([])
 
@@ -122,6 +92,53 @@ function exportToJSON() {
       exportDisabled.value = false
     });
 }
+
+// Preserve scroll and search queries
+onBeforeUnmount(() => {
+  sessionStorage.setItem('landmarkIndexScrollX', window.scrollX);
+  sessionStorage.setItem('landmarkIndexScrollY', window.scrollY);
+  sessionStorage.setItem('landmarkIndexSearchQuery', searchQuery.value);
+  sessionStorage.setItem('landmarkIndexSelectedTypes', JSON.stringify(selectedLandmarkTypes.value))
+  sessionStorage.setItem('landmarkIndexSelectedCountries', JSON.stringify(selectedCountries.value))
+})
+
+// Preserve scroll and search queries
+window.onbeforeunload = function() {
+  sessionStorage.setItem('landmarkIndexScrollX', window.scrollX);
+  sessionStorage.setItem('landmarkIndexScrollY', window.scrollY);
+  sessionStorage.setItem('landmarkIndexSearchQuery', searchQuery.value);
+  sessionStorage.setItem('landmarkIndexSelectedTypes', JSON.stringify(selectedLandmarkTypes.value))
+  sessionStorage.setItem('landmarkIndexSelectedCountries', JSON.stringify(selectedCountries.value))
+}
+
+// Preserve scroll and filters
+onMounted(() => {
+  const scrollX = sessionStorage.getItem('landmarkIndexScrollX');
+  const scrollY = sessionStorage.getItem('landmarkIndexScrollY');
+  if (scrollX && scrollY) {
+    setTimeout(() => {
+      window.scrollTo(scrollX, scrollY);
+    })
+  }
+
+  const storedSearchQuery = sessionStorage.getItem('landmarkIndexSearchQuery');
+  if (storedSearchQuery) {
+    searchQuery.value = storedSearchQuery
+    filteredLandmarks.value = fuzzysort.go(storedSearchQuery.trim(), props.landmarks, fuzzysortOptions)
+  }
+
+  const storedSelectedTypes = sessionStorage.getItem('landmarkIndexSelectedTypes');
+  if (storedSelectedTypes) {
+    selectedLandmarkTypes.value = JSON.parse(storedSelectedTypes);
+  }
+
+  const storedSelectedCountries = sessionStorage.getItem('landmarkIndexSelectedCountries');
+  if (storedSelectedCountries) {
+    selectedCountries.value = JSON.parse(storedSelectedCountries);
+  }
+
+})
+
 
 </script>
 
